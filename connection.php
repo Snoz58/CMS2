@@ -1,34 +1,26 @@
 <?php
 session_start();
 require_once('controller/class.php');
-$user = new USER();
+$login = new USER();
 
-if($user->is_loggedin()!="")
+if($login->is_loggedin()!="")
 {
-  $user->redirect('index.php');
+  $login->redirect('interface.php');
 }
 
-if(isset($_POST['btn_envoyer']))
+if(isset($_POST['envoyer']))
 {
   $uname = strip_tags($_POST['pseudo']);
-  $umail = strip_tags($_POST['mail']);
   $upass = strip_tags($_POST['password']);
-  $uid_statut = '1';
-  
 
-    try
-    {
-      $stmt = $user->runQuery("SELECT pseudo FROM utilisateur WHERE pseudo=:uname");
-      $stmt->execute(array( ':uname'=>$uname));
-      $row=$stmt->fetch(PDO::FETCH_ASSOC);
-        if($user->register($uname,$umail,$upass,$uid_statut)){
-          $user->redirect('index.php');
-        }
-    }
-    catch(PDOException $e)
-    {
-      echo $e->getMessage();
-    }
+  if($login->doLogin($uname,$upass))
+  {
+    $login->redirect('interface.php');
+  }
+  else
+  {
+    echo"error";
+  }
 }
 ?>
 
@@ -36,9 +28,9 @@ if(isset($_POST['btn_envoyer']))
 include("page/header.html");
 ?>
 
-<!-- FORMULAIRE POUR INSCRIPTION -->
+<!-- FORMULAIRE POUR CONNEXION -->
   <div class="container">
-    <form name="register" method="post">
+    <form name="connection" method="post">
         <div class="row">
             <form class="col s12">
                 <div class="row">
@@ -50,20 +42,13 @@ include("page/header.html");
                 </div>
                 <div class="row">
                     <div class="input-field col s2 offset-s5">
-                        <i class="material-icons prefix">email</i>
-                        <input id="mail" type="email" class="validate" name="mail">
-                        <label for="mail">Email</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s2 offset-s5">
                         <i class="material-icons prefix">lock</i>
                         <input id="password" type="password" class="validate" name="password">
                         <label for="password">Mot de passe</label>
                     </div>
                 </div>
                 <div class="row col s2 offset-s6">
-                    <button class="btn waves-effect teal-light brown" type="submit" name="btn_envoyer">Enregistrer
+                    <button class="btn waves-effect teal-light brown" type="submit" name="envoyer">Enregistrer
                         <i class="material-icons right">send</i>
                     </button>
                 </div>
