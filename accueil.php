@@ -1,34 +1,22 @@
-<!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Accueil</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-   </head>
+<?php
+include("page/header1.php");
+?>
     <body>
         Accueil du site.
 
             <?php
-            try
-            {
-                // On se connecte à MySQL
-                $bdd = new PDO('mysql:host=localhost:8889;dbname=ProjetCMS;charset=utf8', 'root', 'root');
-            }
-            catch(Exception $e)
-            {
-                // En cas d'erreur, on affiche un message et on arrête tout
-                    die('Erreur : '.$e->getMessage());
-            }
+            require_once("controller/session.php");
+            require_once("controller/class.php");
+            $user = new USER();
+
+
+
 
             // Si tout va bien, on peut continuer
 
             // On récupère tout le contenu de la table jeux_video
-            $reponse = $bdd->query('SELECT * FROM Recette');
+            $reponse = $user->runQuery('SELECT * FROM Recette');
+            $reponse->execute();
 
             // On affiche chaque entrée une à une
             while ($donnees = $reponse->fetch())
@@ -40,7 +28,7 @@
                 <strong>Contenu</strong> : <?php echo $donnees['contenu']; ?><br />
                 <strong>Photo</strong> : <?php echo $donnees['adresse_photo']; ?><br />
                 <strong>Etat</strong> : <?php echo $donnees['etat']; ?>
-                <?php $req = $bdd->prepare('SELECT Commentaire FROM Commentaire WHERE id_recette = ?');
+                <?php $req = $user->runQuery('SELECT commentaire FROM commentaire WHERE id_recette = ?');
                 $req->execute(array($donnees['id_recette']));
                 $id_recette = $donnees['id_recette'];
                 ?>

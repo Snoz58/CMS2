@@ -35,8 +35,8 @@
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
       <ul class="left hide-on-med-and-down">
-        <li><a class="grey-text text-darken-4" href="accueil1.php">Accueil</a></li>
-        <li><a class="grey-text text-darken-4" href="recette.php">Recette</a></li>
+        <li><a class="grey-text text-darken-4" href="accueil.php">Accueil</a></li>
+        <li><a class="grey-text text-darken-4" href="recette2.php">Recette</a></li>
       </ul>
       <ul class="right hide-on-med-and-down">
           <li><a class="red-text text-darken-1" href="#"><?php echo $userRow['pseudo']; ?></a><li>
@@ -44,8 +44,8 @@
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-        <li><a class="grey-text text-darken-4" href="accueil1.php">Accueil</a></li>
-        <li><a class="grey-text text-darken-4" href="recette.php">Recette</a></li>
+        <li><a class="grey-text text-darken-4" href="accueil.php">Accueil</a></li>
+        <li><a class="grey-text text-darken-4" href="recette2.php">Recette</a></li>
         <li><a class="red-text text-darken-1" href="#"><?php echo $userRow['pseudo']; ?></a><li>
         <li><a class="grey-text text-darken-4" href="controller/logout.php?logout=true">Se Déconnecter</a></li>
       </ul>

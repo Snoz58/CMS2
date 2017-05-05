@@ -9,6 +9,5 @@
 
 	if(!$session->is_loggedin())
 	{
-		
-		$session->redirect('../index.php');
+		$session->redirect('index.php');
 	}
