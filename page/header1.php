@@ -1,8 +1,8 @@
 <?php
 
-  require_once("/controller/session.php");
+  require_once("controller/session.php");
 
-  require_once("/controller/class.php");
+  require_once("controller/class.php");
   $auth_user = new USER();
 
 
@@ -39,14 +39,14 @@
         <li><a class="grey-text text-darken-4" href="recette.php">Recette</a></li>
       </ul>
       <ul class="right hide-on-med-and-down">
-          <li><span class="red-text text-darken-1" href="#"><?php echo $userRow['pseudo']; ?></a><li>
+          <li><a class="red-text text-darken-1" href="#"><?php echo $userRow['pseudo']; ?></a><li>
             <li><a class="grey-text text-darken-4" href="controller/logout.php?logout=true">Se Déconnecter</a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
         <li><a class="grey-text text-darken-4" href="accueil1.php">Accueil</a></li>
         <li><a class="grey-text text-darken-4" href="recette.php">Recette</a></li>
-        <li><span class="red-text text-darken-1" href="#"><?php echo $userRow['pseudo']; ?></a><li>
+        <li><a class="red-text text-darken-1" href="#"><?php echo $userRow['pseudo']; ?></a><li>
         <li><a class="grey-text text-darken-4" href="controller/logout.php?logout=true">Se Déconnecter</a></li>
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
