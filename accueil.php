@@ -1,21 +1,34 @@
 <?php
 include("page/header1.php");
+$choix = 1;
 ?>
 <body>
-        <form method="POST">
-        <div class="row">
-            <div class="input-field col s1">
-              <select name="mySelect" id="mySelect" class="browser-default">
-                <option value="1">Date</option>
-                <option value="2">Like</option>
-              </select>
+    <div class="container">
+        <div class="section">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <form method="POST">
+                        <div class="row">
+                            <div class="input-field col s1">
+                                <select name="mySelect" id="mySelect" class="browser-default">
+                                    <option value="1">Date</option>
+                                    <option value="2">Like</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s2">
+                                <input type="submit" class="btn waves-effect waves-light" value="Validation">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
             </div>
-            <div class="input-field col s2">
-            <input type="submit" class="btn waves-effect waves-light" value="Validation">
-            </div>
-          </div>
-                
-          </form>
+        </div>
+    </div>
+
+
+
             <?php
 
             if (isset($_POST['mySelect'])) {
@@ -25,7 +38,7 @@ include("page/header1.php");
             try
             {
                 // On se connecte à MySQL
-                $bdd = new PDO('mysql:host=localhost:8889;dbname=ProjetCMS;charset=utf8', 'root', 'root');
+                $bdd = new PDO('mysql:host=localhost;dbname=cms;charset=utf8', 'root', '');
             }
             catch(Exception $e)
             {
