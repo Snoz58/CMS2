@@ -1,0 +1,15 @@
+.double-input .form-control {
+	margin-top: 5px;
+	color: red;
+    width: 50%;
+    
+}
+.double-input .form-control:focus {
+    border-right-width: 1px;
+}
+.no-right-border{
+	border-right-width: 0px;
+}
+.container{
+	padding-top: 30px;
+}

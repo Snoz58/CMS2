@@ -8,10 +8,10 @@
     <title>Connexion</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="../css/signin.css" rel="stylesheet">
+    <link href="css/signin.css" rel="stylesheet">
 
   </head>
 

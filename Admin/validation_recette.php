@@ -1,71 +1,39 @@
-<?php
-$pdo = new PDO(
-    'mysql:host=localhost;dbname=ProjetCMS',
-    'root',
-    ''
-);
+<?php 
+include('header.php');
+afficherHeader("validation de recette");
 
-$reponse = $pdo->query('Select * from Recette');
 
+$reponse = $pdo->query('SELECT id_recette, description
+            FROM Recette');
+$tableau = "";
 while ($donnees = $reponse->fetch())
 {
-	var_dump($donnees);
+  $tableau .= "<tr>
+                  <td>".$donnees["id_recette"]."</td>
+                  <td>".$donnees["description"]."</td>
+                  <td><button type='button' class='btn btn-primary'>Répondre</button>
+                <button type='button' class='btn btn-danger'>Modérer</button></td>
+               </tr>"; 
+
 }
-?>
 
 
+ ?>
 
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Validation recette</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="../css/offcanvas.css" rel="stylesheet">
-
-  </head>
-
-  <body>
-    <nav class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Administration - CookMS</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Accueil</a></li>
-            <li><a href="#about">Création</a></li>
-            <li><a href="#contact">Validation</a></li>
-          </ul>
-        </div><!-- /.nav-collapse -->
-      </div><!-- /.container -->
-    </nav><!-- /.navbar -->
-
-    <div class="container">
-
-      <div class="row row-offcanvas row-offcanvas-right">
-
-        <div class="col-xs-12 col-sm-9">
-        	machin        	
-        </div><!--/.col-xs-12.col-sm-9-->
-
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-          truc
-        </div><!--/.sidebar-offcanvas-->
-      </div><!--/row-->
+    <h2>Modération</h2>           
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Recette</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    <?= $tableau ?>
+    </tbody>
+  </table>
+</div>
 
     </div><!--/.container-->
 
