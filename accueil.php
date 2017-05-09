@@ -3,11 +3,18 @@ include("page/header1.php");
 ?>
 <body>
         <form method="POST">
-                <select name="mySelect" id="mySelect" class="browser-default">
+        <div class="row">
+            <div class="input-field col s1">
+              <select name="mySelect" id="mySelect" class="browser-default">
                 <option value="1">Date</option>
                 <option value="2">Like</option>
-                <input type="submit" value="Validation">
               </select>
+            </div>
+            <div class="input-field col s2">
+            <input type="submit" class="btn waves-effect waves-light" value="Validation">
+            </div>
+          </div>
+                
           </form>
             <?php
 
@@ -50,10 +57,15 @@ include("page/header1.php");
                 $id_recette = $donnees['id_recette'];
                 ?>
                 <form method="post" action="ajout_commentaire.php">
-                    <input type="text" name="commentaire"<?php echo $id_recette; ?>>  
+                <div class="row">
+                    <div class="input-field col s2">
+                      <input type="text" name="commentaire"<?php echo $id_recette; ?>>  
                     <input type="text" style="display:none;" name="id_recette" value=<?php echo $id_recette; ?>></input>
-                    <input type="submit" name="ajout" value="Envoyer"<?php echo $id_recette; ?>>
+                    <input type="submit" class="btn waves-effect waves-light" name="ajout" value="Nouveau commentaire"<?php echo $id_recette; ?>>
                     <br /><br />
+                    </div>
+
+                  </div>
                 </form>
                 <?php
                 while ($donnees2 = $req->fetch())
@@ -99,10 +111,15 @@ include("page/header1.php");
                 $id_recette = $donnees['id_recette'];
                 ?>
                 <form method="post" action="ajout_commentaire.php">
-                    <input type="text" name="commentaire"<?php echo $id_recette; ?>>  
+                <div class="row">
+                    <div class="input-field col s2">
+                      <input type="text" name="commentaire"<?php echo $id_recette; ?>>  
                     <input type="text" style="display:none;" name="id_recette" value=<?php echo $id_recette; ?>></input>
-                    <input type="submit" name="ajout" value="Envoyer"<?php echo $id_recette; ?>>
+                    <input type="submit" class="btn waves-effect waves-light" name="ajout" value="Nouveau commentaire"<?php echo $id_recette; ?>>
                     <br /><br />
+                    </div>
+
+                  </div>
                 </form>
                 <?php
                 while ($donnees2 = $req->fetch())

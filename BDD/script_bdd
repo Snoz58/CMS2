@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost
--- Généré le :  Mar 09 Mai 2017 à 18:09
+-- Généré le :  Mar 09 Mai 2017 à 18:51
 -- Version du serveur :  5.6.35
 -- Version de PHP :  7.1.1
 
@@ -115,6 +115,7 @@ CREATE TABLE `Note` (
 
 CREATE TABLE `Recette` (
   `id_recette` int(11) NOT NULL,
+  `titre_recette` varchar(50) NOT NULL,
   `description` varchar(500) NOT NULL,
   `contenu` varchar(1000) NOT NULL,
   `adresse_photo` varchar(100) DEFAULT NULL,
@@ -125,9 +126,9 @@ CREATE TABLE `Recette` (
 -- Contenu de la table `Recette`
 --
 
-INSERT INTO `Recette` (`id_recette`, `description`, `contenu`, `adresse_photo`, `etat`) VALUES
-(1, 'Nouille + Jambon', 'Nouille + Jambon', 'test_photo', 'en cours'),
-(2, 'mcdo', 'mcdo', 'photo2', 'en cours');
+INSERT INTO `Recette` (`id_recette`, `titre_recette`, `description`, `contenu`, `adresse_photo`, `etat`) VALUES
+(1, '', 'Nouille + Jambon', 'Nouille + Jambon', 'test_photo', 'en cours'),
+(2, '', 'mcdo', 'mcdo', 'photo2', 'en cours');
 
 -- --------------------------------------------------------
 
@@ -281,7 +282,8 @@ ALTER TABLE `contient`
 -- Index pour la table `Ingredient`
 --
 ALTER TABLE `Ingredient`
-  ADD PRIMARY KEY (`id_ingredient`);
+  ADD PRIMARY KEY (`id_ingredient`),
+  ADD UNIQUE KEY `label` (`label`);
 
 --
 -- Index pour la table `Note`
@@ -387,7 +389,7 @@ ALTER TABLE `Tag`
 -- AUTO_INCREMENT pour la table `TJ_Commentaire_Utilisateur`
 --
 ALTER TABLE `TJ_Commentaire_Utilisateur`
-  MODIFY `id_commentaire_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_commentaire_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT pour la table `Unite`
 --
