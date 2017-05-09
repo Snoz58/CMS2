@@ -56,7 +56,7 @@
                 
             }
 
-            redir("http://localhost:8888/CMS2-master/accueil.php");
+            redir("http://localhost:8888/CMS2/accueil.php");
 
             }
         
@@ -88,7 +88,7 @@
             $stmt5->closeCursor();
          }
 
-         redir("http://localhost:8888/CMS2-master/accueil.php");
+         redir("http://localhost:8888/CMS2/accueil.php");
 
     }
 
