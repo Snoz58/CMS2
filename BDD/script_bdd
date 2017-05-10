@@ -113,7 +113,7 @@ CREATE TABLE `Recette` (
   `titre_recette` varchar(50) NOT NULL,
   `description` varchar(500) NOT NULL,
   `contenu` varchar(1000) NOT NULL,
-  `adresse_photo` varchar(100) DEFAULT NULL,
+  `adresse_photo` varchar(255) DEFAULT NULL,
   `etat` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

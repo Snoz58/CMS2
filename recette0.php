@@ -5,7 +5,7 @@ $id_r = $_GET["id"];
 try
 {
     // On se connecte à MySQL
-    $bdd = new PDO('mysql:host=localhost;dbname=cms;charset=utf8', 'root', '');
+    $bdd = new PDO('mysql:host=localhost;dbname=ProjetCMS;charset=utf8', 'root', 'root');
 }
 catch(Exception $e)
 {
@@ -40,7 +40,7 @@ while ($donnees = $req->fetch())
                 <img class="materialboxed center-block"  height="300" width="300" src="<?php echo $donnees['adresse_photo']; ?>" >
             </div>
 
-            <div class="col l5 ">
+            <div class="col l5 offset-l1">
                 <h5 class="center"><?php echo $donnees['titre_recette']; ?> </h5>
                 <p class="black-text text-darken-4"><?php echo $donnees['description']; ?></p>
                 <p class="black-text">Contient: <?php echo $donnees['contenu']; ?></p>

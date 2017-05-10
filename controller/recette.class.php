@@ -46,7 +46,7 @@ class RECETTE
 	{
 		try
 		{
-			$stmt = $this->conn->prepare("SELECT id_utilisateur, pseudo, password FROM utilisateur WHERE pseudo=:uname");
+			$stmt = $this->conn->prepare("SELECT id_utilisateur, pseudo, password, id_statut FROM utilisateur WHERE pseudo=:uname");
 			$stmt->execute(array(':uname'=>$uname));
 			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 			if($stmt->rowCount() == 1)
