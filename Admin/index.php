@@ -1,4 +1,30 @@
+<?php 
 
+  include('bdd.php');
+
+  if (isset($_POST["submit"])){
+
+    $login = $_POST["inputLogin"];
+    $password = $_POST["inputPassword"];
+
+    $req = "select password, niveau from Utilisateur inner join statut on statut.id_statut = Utilisateur.id_statut where pseudo = '".$login."'";
+    $reponse = $pdo->query($req);
+    $donnees = $reponse->fetch();
+
+    if (password_verify ($password , $donnees["password"])){
+      // quelque chose avec les sessions
+      session_start();
+      $_SESSION["statut"] = $donnees["niveau"];
+      
+    }
+    else {
+      echo 'erreur de connexion';
+    }
+
+
+  } 
+
+ ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -19,13 +45,16 @@
 
     <div class="container">
 
-      <form class="form-signin">
+      <form class="form-signin" action="index.php" method="POST">
         <h2 class="form-signin-heading">Connexion</h2>
-        <label for="inputEmail" class="sr-only">E-mail</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
+        
+        <label for="inputLogin" class="sr-only">Login</label>
+        <input type="text" id="inputLogin" name="inputLogin" class="form-control" placeholder="Login" required autofocus>
+        
         <label for="inputPassword" class="sr-only">Mot de passe</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
+        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Mot de passe" required>
+        
+        <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Se connecter</button>
         <a href="../inscription.php">Créer un compte</a>
       </form>
 
@@ -33,12 +62,3 @@
 
   </body>
 </html>
-
-
-
-<ul>
-	<li><a href="ajout_recette.php">Ajout recette</a></li>
-	<li><a href="validation_recette.php">Validation recette</a></li>
-	<li><a href="ajout_recette.php">Gestion utilisateurs</a></li>
-	<li><a href="ajout_recette.php">Derniers commentaires</a></li>
-</ul>

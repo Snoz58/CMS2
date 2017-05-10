@@ -8,79 +8,108 @@ include("formrecette.php");
 		var_dump($_POST);
 		echo "</pre>";
 
+		echo "<pre>";
+		var_dump($_FILES);
+		echo "</pre>";
+
+
 if (isset($_GET['submit'])){
 
-	$_GET['action'] = "ajout";
+	if ($_GET['submit'] == "ajout"){
+		$_GET['action'] = "ajout";
 
-	$titre = $_POST["titre"];
-	$description = $_POST["description"];
-	$contenu = $_POST["contenu"];
-	$image = "";
-	// $image = $_POST["image"];
-	$etat = "soummis";
-	$ingredient = $_POST["ingredient"];
-	$quantite = $_POST["quantite"];
-	$tag = $_POST["tag"];
+	    $dossier = '../images/';
+	    $fichier = md5(uniqid()).strrchr($_FILES['test']['name'], '.');
 
-	$reqRecette = "insert into Recette (titre_recette, description, contenu, adresse_photo, etat)  values ('".$titre."', '".$description."', '".$contenu."', '".$image."', '".$etat."')";
-	
-	$reqIngredient = "insert ignore into Ingredient (label)  values ";	
-	for ($i=0; $i<sizeof($ingredient); $i++){
-		$reqIngredient .= "('".$ingredient[$i]."'),";
+	    move_uploaded_file($_FILES['test']['tmp_name'], $dossier . $fichier);
+
+		$titre = $_POST["titre"];
+		$description = $_POST["description"];
+		$contenu = $_POST["contenu"];
+		$image = "images/".$fichier;
+		// $image = $_POST["image"];
+		$etat = "soummis";
+		$ingredient = $_POST["ingredient"];
+		$quantite = $_POST["quantite"];
+		$tag = $_POST["tag"];
+
+		$reqRecette = "insert into Recette (titre_recette, description, contenu, adresse_photo, etat)  values ('".$titre."', '".$description."', '".$contenu."', '".$image."', '".$etat."')";
+		
+		$reqIngredient = "insert ignore into Ingredient (label)  values ";	
+		for ($i=0; $i<sizeof($ingredient); $i++){
+			$reqIngredient .= "('".$ingredient[$i]."'),";
+		}
+		$reqIngredient = substr($reqIngredient, 0, -1);
+
+		$reqContient = "insert into contient values";
+
+		for ($i=0; $i<sizeof($ingredient); $i++){
+
+			$reqContient .= "(".$quantite[$i].", (
+				select id_recette 
+				from Recette
+				where titre_recette = '".$titre."'
+			), (
+				select id_ingredient 
+				from Ingredient
+				where label = '".$ingredient[$i]."'
+			)),";
+		}
+		$reqContient = substr($reqContient, 0, -1);
+
+		$reqTag = "insert ignore into Tag (label)  values ";	
+		for ($i=0; $i<sizeof($tag); $i++){
+			$reqTag .= "('".$tag[$i]."'),";
+		}
+		$reqTag = substr($reqTag, 0, -1);
+
+		$reqTJ_Tag_Recette = "insert into TJ_Tag_Recette values";
+
+		for ($i=0; $i<sizeof($tag); $i++){
+
+			$reqTJ_Tag_Recette .= "((
+				select id_tag 
+				from Tag
+				where label = '".$tag[$i]."'
+			), (
+				select id_recette 
+				from Recette
+				where titre_recette = '".$titre."'
+			)),";
+		}
+		$reqTJ_Tag_Recette = substr($reqTJ_Tag_Recette, 0, -2);
+		$reqTJ_Tag_Recette .= ")";
+
+		$pdo->exec($reqRecette);
+		$pdo->exec($reqIngredient);
+		$pdo->exec($reqTag);
+		$pdo->exec($reqContient);
+		$pdo->exec($reqTJ_Tag_Recette);
+
 	}
-	$reqIngredient = substr($reqIngredient, 0, -1);
 
-	$reqContient = "insert into contient values";
+	if ($_GET['submit'] == "valid" || $_GET['submit'] == "edit"){
+		$_GET['action'] = "ajout";
+		
+		$titre = $_POST["titre"];
+		$description = $_POST["description"];
+		$contenu = $_POST["contenu"];
+		// $image = "";
+		// $image = $_POST["image"];
+		$etat = "publie";
+		$id = $_POST["idRecette"];
 
-	for ($i=0; $i<sizeof($ingredient); $i++){
+		$req = 'UPDATE Recette SET  titre_recette = "'.$titre.'",
+							 description = "'.$description.'",
+							 contenu = "'.$contenu.'",
+					
+							 etat = "'.$etat.'"
+		WHERE id_recette = '.$id;
 
-		$reqContient .= "(".$quantite[$i].", (
-			select id_recette 
-			from Recette
-			where titre_recette = '".$titre."'
-		), (
-			select id_ingredient 
-			from Ingredient
-			where label = '".$ingredient[$i]."'
-		),";
+		$pdo->exec($req);
+
 	}
 
-	$reqContient .= ")";
-	var_dump($tag);
-	$reqTag = "insert ignore into Tag (label)  values ";	
-	for ($i=0; $i<sizeof($tag); $i++){
-		$reqTag .= "('".$tag[$i]."'),";
-	}
-	$reqTag = substr($reqTag, 0, -1);
-
-	$reqTJ_Tag_Recette = "insert into TJ_Tag_Recette values";
-
-	for ($i=0; $i<sizeof($tag); $i++){
-
-		$reqTJ_Tag_Recette .= "((
-			select id_tag 
-			from tag
-			where label = '".$tag[$i]."'
-		), (
-			select id_recette 
-			from Recette
-			where titre_recette = '".$titre."'
-		),";
-	}
-
-	$reqTJ_Tag_Recette .= ")";
-
-	echo $reqRecette;
-	if ($pdo->exec($reqRecette))
-		echo "1 ok";
-	if ($pdo->exec($reqIngredient))
-		echo "2 ok";
-	if ($pdo->exec($reqTag))
-		echo "3 ok";
-	if ($pdo->exec($reqContient))
-		echo "4 ok";
-	if ($pdo->exec($reqTJ_Tag_Recette))
-		echo "5 ok";
 }
 
 if (isset($_GET['action']) || isset($_GET['submit'])){

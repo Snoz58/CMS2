@@ -1,9 +1,9 @@
 <?php 
 include('header.php');
-afficherHeader("validation de recette");
+afficherHeader("visualisation de recette");
 
 
-$reponse = $pdo->query('SELECT id_recette, description
+$reponse = $pdo->query('SELECT id_recette, description, titre_recette
                         FROM Recette
                         WHERE etat = "publie"');
 $tableau = "";
@@ -11,8 +11,9 @@ while ($donnees = $reponse->fetch())
 {
   $tableau .= "<tr>
                   <td>".$donnees["id_recette"]."</td>
+                  <td>".$donnees["titre_recette"]."</td>
                   <td>".$donnees["description"]."</td>
-                  <td><a href='recette.php?action=valid&id=".$donnees["id_recette"]."'><button class='btn'>Éditer</button></a>
+                  <td><a href='recette.php?action=edit&id=".$donnees["id_recette"]."'><button class='btn'>Éditer</button></a>
                </tr>"; 
 
 }
@@ -24,7 +25,8 @@ while ($donnees = $reponse->fetch())
     <thead>
       <tr>
         <th>Id</th>
-        <th>Recette</th>
+        <th>Titre</th>
+        <th>Description</th>
         <th>Action</th>
       </tr>
     </thead>

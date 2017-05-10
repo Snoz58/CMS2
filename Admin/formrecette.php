@@ -93,7 +93,7 @@ function formrecette($page, $action, $id){
 
 	}
 ?>
-<form action="<?= $action ?>" method="POST">
+<form action="<?= $action ?>" method="POST" enctype="multipart/form-data">
 		<div class="row">
 			<div class="col-lg-8">
 				<div class="form-group">
@@ -107,10 +107,11 @@ function formrecette($page, $action, $id){
 				<div class="form-group">
 
 
-					<label class="custom-file">
-						<input type="file" id="file" class="custom-file-input">
+<!-- 					<label class="custom-file">
+						<input type="file" id="file" name="image" class="custom-file-input">
 						<span class="custom-file-control"></span>
-					</label>
+					</label> -->
+					Fichier : <input type="file" name="test">
 
 				</div>
 				<div class="form-group">
@@ -145,6 +146,9 @@ function formrecette($page, $action, $id){
 
 			</div>
 		</div>
+			<?php if (isset($_GET["id"])){ ?>
+				<input type="hidden" name="idRecette" value="<?= $_GET["id"]; ?>" />
+			<?php } ?>
 			<button type="submit" class="btn btn-primary pull-right btn-lg" name="<?= $submit; ?>"><?= $submit; ?></button>
 		</form>
 
@@ -222,6 +226,10 @@ function formrecette($page, $action, $id){
 		  content_css: '//www.tinymce.com/css/codepen.min.css'
 		});
     </script>
+
+    	<!-- tinyMCE -->
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=8cyo4t3iin326cmnzyjf1mmd3yx812c960r5jlvefshagxsn"></script>
+
 <?php 
 }
 ?>

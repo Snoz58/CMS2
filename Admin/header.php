@@ -1,5 +1,7 @@
 <?php  
 
+session_start();
+
 include("bdd.php");
 
 function afficherHeader($title){
