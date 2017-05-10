@@ -1,5 +1,5 @@
 <?php
-    
+    $id_r = $_GET["id"];
         include('accueil.php');
 
         function redir($url){
@@ -34,6 +34,6 @@
             $stmt->closeCursor();
         }
 
-        redir("./recette2.php");
+        redir("./recette.php?id=".$id_r);
 
 ?>

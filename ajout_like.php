@@ -1,6 +1,6 @@
 <?php
-
-        include('accueil.php');
+    $id_r= $_GET["id"];
+        include('liste2.php');
 
         function redir($url){
             echo '<script language="javascript">';
@@ -56,7 +56,7 @@
                 
             }
 
-            redir("./recette2.php");
+            redir("./recette.php?id=".$id_r);
 
             }
         
@@ -87,8 +87,7 @@
 
             $stmt5->closeCursor();
          }
-
-         redir("./recette2.php");
+         redir("./recette.php?id=".$id_r);
 
     }
 

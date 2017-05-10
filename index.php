@@ -14,7 +14,7 @@
     <div class="nav-wrapper container">
       <ul class="left hide-on-med-and-down">
         <li><a class="grey-text text-darken-4" href="index.php">Accueil</a></li>
-        <li><a class="grey-text text-darken-4" href="recette.php">Recette</a></li>
+        <li><a class="grey-text text-darken-4" href="liste.php">Recettes</a></li>
       </ul>
       <ul class="right hide-on-med-and-down">
             <li><a class="grey-text text-darken-4" href="inscription.php">S'inscrire</a><li>
@@ -23,7 +23,7 @@
 
       <ul id="nav-mobile" class="side-nav">
         <li><a class="grey-text text-darken-4" href="index.php">Accueil</a></li>
-        <li><a class="grey-text text-darken-4" href="recette.php">Recette</a></li>
+        <li><a class="grey-text text-darken-4" href="liste.php">Recettes</a></li>
         <li><a class="grey-text text-darken-4" href="inscription.php">S'inscrire</a></li>
         <li><a class="grey-text text-darken-4" href="connection.php">Se connecter</a></li>
       </ul>
@@ -48,22 +48,22 @@
       <li>
         <img src="http://img.over-blog-kiwi.com/1/14/48/83/20160815/ob_a312d9_food-porn-waffles-edition.jpg"> <!-- random image -->
         <div class="caption left-align">
-          <h3>Left Aligned Caption</h3>
-          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+          <h3>Miam</h3>
+          <h5 class="light grey-text text-lighten-3">Sa donne faim.</h5>
         </div>
       </li>
       <li>
         <img src="http://www.yearn-magazine.fr/wp-content/uploads/2015/11/foodies-food-porn-blog-diy-do-it-yourself-6.jpg"> <!-- random image -->
         <div class="caption right-align">
-          <h3>Right Aligned Caption</h3>
-          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+          <h3>Miam</h3>
+          <h5 class="light grey-text text-lighten-3">Sa donne faim.</h5>
         </div>
       </li>
       <li>
         <img src="http://img.izismile.com/img/img5/20120728/640/crazy_food_porn_part_5_640_32.jpg"> <!-- random image -->
         <div class="caption center-align">
-          <h3>This is our big Tagline!</h3>
-          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+          <h3>Miam</h3>
+          <h5 class="light grey-text text-lighten-3">Sa donne faim.</h5>
         </div>
       </li>
     </ul>
@@ -73,7 +73,7 @@
         <h5 class="header col s12 light">Une plateform de gestion de recette en ligne</h5>
       </div>
       <div class="row center">
-        <a href="" id="download-button" class="btn-large waves-effect waves-light brown darken-4 ">S'inscrire</a>
+        <a href="inscription.php" id="download-button" class="btn-large waves-effect waves-light brown darken-4 ">S'inscrire</a>
       </div>
       <br><br>
 
@@ -91,7 +91,7 @@
             <h2 class="center black-text"><i class="material-icons">flash_on</i></h2>
             <h5 class="center">Rapide</h5>
 
-            <p class="light">Blablabla</p>
+            <p class="light"> </p>
           </div>
         </div>
 
@@ -100,7 +100,7 @@
             <h2 class="center black-text"><i class="material-icons">group</i></h2>
             <h5 class="center">Concentrer sur l'expérience utilisateur</h5>
 
-            <p class="light">Blabla User Friendly</p>
+            <p class="light"> </p>
           </div>
         </div>
 
@@ -109,7 +109,7 @@
             <h2 class="center black-text"><i class="material-icons">settings</i></h2>
             <h5 class="center">Facile à utiliser</h5>
 
-            <p class="light">Blabla</p>
+            <p class="light"> </p>
           </div>
         </div>
       </div>
@@ -117,9 +117,6 @@
     </div>
     <br><br>
 
-    <div class="section">
-
-    </div>
   </div>
 
 <?php

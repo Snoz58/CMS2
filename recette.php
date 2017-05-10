@@ -1,158 +1,113 @@
 <?php
-include("page/header.html");
-$choix = 1;
-?>
+include("page/header1.php");
+$id_r = $_GET["id"];
+
+try
+{
+    // On se connecte à MySQL
+    $bdd = new PDO('mysql:host=localhost;dbname=cms;charset=utf8', 'root', '');
+}
+catch(Exception $e)
+{
+    // En cas d'erreur, on affiche un message et on arrête tout
+    die('Erreur : '.$e->getMessage());
+}
+
+$req = $bdd->prepare('SELECT * FROM Recette WHERE id_recette = ?');
+$req->execute(array($id_r));
+
+$req2 = $bdd->prepare('SELECT Commentaire.commentaire,Commentaire.date_commentaire,Commentaire.id_utilisateur,Commentaire.like_commentaire,Utilisateur.pseudo,Commentaire.id_commentaire FROM Commentaire 
+                    INNER JOIN Utilisateur ON Utilisateur.id_utilisateur = Commentaire.id_utilisateur
+                    WHERE id_recette = ?
+                    ORDER BY Commentaire.like_commentaire DESC,Commentaire.date_commentaire');
+$req2->execute(array($id_r));
+
+$req3 = $bdd->prepare('select quantite, label from Ingredient inner join contient on Ingredient.id_ingredient = contient.id_ingredient where contient.id_recette = ?');
+$req3->execute(array($id_r));
+
+$req4 = $bdd->prepare('select label from Tag inner join TJ_Tag_Recette on Tag.id_tag = TJ_Tag_Recette.id_tag where TJ_Tag_Recette.id_recette = ?');
+$req4->execute(array($id_r));
+
+
+while ($donnees = $req->fetch())
+{
+    ?>
 <body>
-<div class="container">
-    <div class="section">
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="col l3 ">
+                    <img class="materialboxed center-block"  height="300" width="300" src="<?php echo $donnees['adresse_photo']; ?>" >
+                </div>
 
-        <div class="row">
-            <div class="col l12">
-                <form method="POST">
-                    <div class="row">
-                        <div class="input-field col s1">
-                            <select name="mySelect" id="mySelect" class="browser-default">
-                                <option value="1">Date</option>
-                                <option value="2">Like</option>
-                            </select>
-                        </div>
-                        <div class="input-field col s2">
-                            <input type="submit" class="btn waves-effect waves-light" value="Validation">
-                        </div>
-                    </div>
+                <div class="col l5 ">
+                    <h5 class="center"><?php echo $donnees['titre_recette']; ?> </h5>
+                    <p class="black-text text-darken-4"><?php echo $donnees['description']; ?></p>
+                    <p class="black-text">Contient: <?php echo $donnees['contenu']; ?></p>
+                    <?php while ($donnees3 =$req3->fetch())
+                    {?>
+                    <p class="black-text"><?php echo $donnees3['quantite'] ." x ".$donnees3['label'] ; ?></p>
+                    <?php } ?>
 
-                </form>
+                    <p class="black-text">Tag:
+                    <?php while ($donnees4 =$req4->fetch())
+                    {?>
+                        <?php echo $donnees4['label'] ; ?></p>
+                    <?php } ?>
+
+                </div>
             </div>
+
+            <!-- COMMENTAIRE -->
+            <div class="row">
+                <div class=" center col l12">
+                    <h5 class="center red-text">Commentaires:</h5>
+
+                    <?php
+                    while ($donnees2 = $req2->fetch())
+                    {
+                        echo "<p>Date: <strong>".$donnees2['date_commentaire']."</strong>";?><br /><?php
+                        echo "Utilisateur:<strong>".$donnees2['pseudo']."</strong>";?><br /><?php
+                        echo "<strong>".$donnees2['commentaire']."</strong>";?><br />
+
+                        <?php
+                        echo "<form method=\"post\" action=\"ajout_like.php?id=".$id_r."\">" ?>
+                            <input type='submit' class="btn waves-effect teal-light brown" name='ajoutLike' value='LIKER'><?php echo " Il y a : ".$donnees2['like_commentaire']." likes ";?></input><input type='submit' class="btn waves-effect teal-light brown" name='suppLike' value='DISLIKER'></input><br /><br />
+                            <input type="text" style="display:none;" name="id_commentaire" value=<?php echo $donnees2['id_commentaire']; ?>></input>
+                        </form>
+                        </p>
+                        <?php
+                    }
+
+                    ?>
+
+                </div>
+            </div>
+
+            <!-- Mettre un COMMENTAIRE -->
+            <div class="row ">
+                <div class=" offset-l3 col l12">
+                    <h5 class="red-text">Ajout un commentaire:</h5>
+                    <?php echo "<form method=\"post\" action=\"ajout_commentaire.php?id=".$id_r."\">" ?>
+                        <div class="row ">
+                            <div class="input-field col s8 ">
+                                <input type="text" name="commentaire" placeholder="Ajout de Commentaire"/>
+                                <?php echo "<input type=\"text\" style=\"display:none;\" name=\"id_recette\" value=\"$id_r\"/>" ?>
+                                <input type="submit" class="btn waves-effect teal-light brown" name="ajout" value="Nouveau commentaire"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    <?php
+}
+$req->closeCursor(); // Termine le traitement de la requête
+$req2->closeCursor();
+?>
         </div>
-        <?php
-
-        if (isset($_POST['mySelect'])) {
-            $choix = $_POST['mySelect'];
-        }
-
-        try
-        {
-            // On se connecte à MySQL
-            $bdd = new PDO('mysql:host=localhost;dbname=cms;charset=utf8', 'root', '');
-        }
-        catch(Exception $e)
-        {
-            // En cas d'erreur, on affiche un message et on arrête tout
-            die('Erreur : '.$e->getMessage());
-        }
-
-        // Si tout va bien, on peut continuer
-
-        // On récupère tout le contenu de la table jeux_video
-        $reponse = $bdd->query('SELECT * FROM Recette');
-
-        // On affiche chaque entrée une à une
-        if($choix == 2){
-            while ($donnees = $reponse->fetch())
-            {
-                ?>
-                <div class="row">
-                    <div class="col l3 ">
-                        <img class="materialboxed" width="300" src="img/burger.png">
-                        <?php /* echo $donnees['adresse_photo']; */ ?>
-                    </div>
-
-                    <div class="col l5 ">
-                        <h5 class="center"> <?php echo $donnees['id_recette']; ?>: <?php echo $donnees['titre_recette']; ?> </h5>
-                        <p class="grey-text text-darken-4"><?php echo $donnees['description']; ?></p>
-                        <p><a class="grey-text" href="#">Contient: <?php echo $donnees['contenu']; ?></a></p>
-                        <p><a class="grey-text" href="#">Etat:<?php echo $donnees['etat']; ?></a></p>
-                    </div>
-                    <?php $req = $bdd->prepare('SELECT Commentaire.commentaire,Commentaire.date_commentaire,Commentaire.id_utilisateur,Commentaire.like_commentaire,Utilisateur.pseudo,Commentaire.id_commentaire FROM Commentaire 
-                    INNER JOIN Utilisateur ON Utilisateur.id_utilisateur = Commentaire.id_utilisateur
-                    WHERE id_recette = ?
-                    ORDER BY Commentaire.like_commentaire DESC,Commentaire.date_commentaire');
-                    $req->execute(array($donnees['id_recette']));
-                    $id_recette = $donnees['id_recette'];
-                    ?>
-                </div>
-
-                <div class="row">
-                    <div class="col l12">
-                        <?php
-                        while ($donnees2 = $req->fetch())
-                        {
-                            echo "Date: ".$donnees2['date_commentaire']." ";?><br /><?php
-                            echo "Utilisateur: ".$donnees2['pseudo']." ";?><br /><?php
-                            echo $donnees2['commentaire']; ?><br />
-                            <?php
-                        }
-
-                        $req->closeCursor();
-                        ?>
-                    </div>
-                </div>
-
-                <?php
-            }
-            $reponse->closeCursor(); // Termine le traitement de la requête
-        }
-        else
-        {
-            while ($donnees = $reponse->fetch())
-            {
-                ?>
-                <div class="row">
-                    <div class="col l3 ">
-                        <img class="materialboxed" width="300" src="img/burger.png">
-                        <?php /* echo $donnees['adresse_photo']; */ ?>
-                    </div>
-
-                    <div class="col l5 ">
-                        <h5 class="center"> <?php echo $donnees['id_recette']; ?>: <?php echo $donnees['titre_recette']; ?> </h5>
-                        <p class="grey-text text-darken-4"><?php echo $donnees['description']; ?></p>
-                        <p><a class="grey-text" href="#">Contient: <?php echo $donnees['contenu']; ?></a></p>
-                        <p><a class="grey-text" href="#">Etat:<?php echo $donnees['etat']; ?></a></p>
-                    </div>
-                    <?php $req = $bdd->prepare('SELECT Commentaire.commentaire,Commentaire.date_commentaire,Commentaire.id_utilisateur,Commentaire.like_commentaire,Utilisateur.pseudo,Commentaire.id_commentaire FROM Commentaire 
-                    INNER JOIN Utilisateur ON Utilisateur.id_utilisateur = Commentaire.id_utilisateur
-                    WHERE id_recette = ?
-                    ORDER BY Commentaire.like_commentaire DESC,Commentaire.date_commentaire');
-                    $req->execute(array($donnees['id_recette']));
-                    $id_recette = $donnees['id_recette'];
-                    ?>
-                </div>
-
-
-                <div class="row">
-                    <div class="col l12">
-                        <?php
-                        while ($donnees2 = $req->fetch())
-                        {
-                            echo "Date: ".$donnees2['date_commentaire']." ";?><br /><?php
-                            echo "Utilisateur: ".$donnees2['pseudo']." ";?><br /><?php
-                            echo $donnees2['commentaire']; ?><br />
-                            <?php
-                        }
-
-                        $req->closeCursor();
-                        ?>
-                    </div>
-                </div>
-
-
-                <?php
-            }
-
-            $reponse->closeCursor(); // Termine le traitement de la requête
-
-        }
-        ?>
     </div>
-</div>
-<script>
-    $(document).ready(function() {
-        $('select').material_select();
-    });
-</script>
 <?php
 include("page/footer.html");
 ?>
 </body>
-  </body>
 </html>
