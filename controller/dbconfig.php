@@ -2,9 +2,9 @@
 class Database
 {
     private $host = "localhost";
-    private $db_name = "cms";
+    private $db_name = "ProjetCMS";
     private $username = "root";
-    private $password = "";
+    private $password = "root";
     public $conn;
 
     public function dbConnection()

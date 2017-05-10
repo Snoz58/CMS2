@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost
--- Généré le :  Mer 10 Mai 2017 à 17:47
+-- Généré le :  Mer 10 Mai 2017 à 18:13
 -- Version du serveur :  5.6.35
 -- Version de PHP :  7.1.1
 
@@ -30,6 +30,14 @@ CREATE TABLE `Commentaire` (
   `id_utilisateur` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `Commentaire`
+--
+
+INSERT INTO `Commentaire` (`id_commentaire`, `commentaire`, `date_commentaire`, `like_commentaire`, `etat_commentaire`, `id_recette`, `id_utilisateur`) VALUES
+(41, 'Temps de cuisson de 15 minutes conseillé', '2017-05-10 18:06:15', 1, 0, 3, 12),
+(42, 'Une tarte à la tomate s\'est meilleure', '2017-05-10 18:09:39', 1, 0, 3, 12);
+
 -- --------------------------------------------------------
 
 --
@@ -42,6 +50,14 @@ CREATE TABLE `contient` (
   `id_ingredient` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `contient`
+--
+
+INSERT INTO `contient` (`quantite`, `id_recette`, `id_ingredient`) VALUES
+(5, 3, 2),
+(2, 3, 4);
+
 -- --------------------------------------------------------
 
 --
@@ -53,6 +69,17 @@ CREATE TABLE `Ingredient` (
   `label` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `Ingredient`
+--
+
+INSERT INTO `Ingredient` (`id_ingredient`, `label`) VALUES
+(2, 'Carotte'),
+(5, 'Frites'),
+(4, 'Oignon'),
+(3, 'Poireaux'),
+(1, 'Tomate');
+
 -- --------------------------------------------------------
 
 --
@@ -63,6 +90,17 @@ CREATE TABLE `Note` (
   `id_note` int(11) NOT NULL,
   `note` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `Note`
+--
+
+INSERT INTO `Note` (`id_note`, `note`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
 
 -- --------------------------------------------------------
 
@@ -78,6 +116,13 @@ CREATE TABLE `Recette` (
   `adresse_photo` varchar(100) DEFAULT NULL,
   `etat` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `Recette`
+--
+
+INSERT INTO `Recette` (`id_recette`, `titre_recette`, `description`, `contenu`, `adresse_photo`, `etat`) VALUES
+(3, 'Tarte aux poireaux', 'La meilleure des tartes', '2 kilos de poireaux...\r\nPates', NULL, 'en cours');
 
 -- --------------------------------------------------------
 
@@ -113,6 +158,15 @@ CREATE TABLE `Tag` (
   `label` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `Tag`
+--
+
+INSERT INTO `Tag` (`id_tag`, `label`) VALUES
+(3, 'diététique'),
+(1, 'fast food'),
+(2, 'vegan');
+
 -- --------------------------------------------------------
 
 --
@@ -125,6 +179,14 @@ CREATE TABLE `TJ_Commentaire_Utilisateur` (
   `id_utilisateur` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `TJ_Commentaire_Utilisateur`
+--
+
+INSERT INTO `TJ_Commentaire_Utilisateur` (`id_commentaire_utilisateur`, `id_commentaire`, `id_utilisateur`) VALUES
+(13, 41, 12),
+(14, 42, 12);
+
 -- --------------------------------------------------------
 
 --
@@ -135,6 +197,14 @@ CREATE TABLE `TJ_Ingredient_Unite` (
   `id_ingredient` int(11) NOT NULL,
   `id_unite` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `TJ_Ingredient_Unite`
+--
+
+INSERT INTO `TJ_Ingredient_Unite` (`id_ingredient`, `id_unite`) VALUES
+(1, 2),
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -147,6 +217,13 @@ CREATE TABLE `TJ_Note_Recette` (
   `id_recette` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `TJ_Note_Recette`
+--
+
+INSERT INTO `TJ_Note_Recette` (`id_note`, `id_recette`) VALUES
+(3, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -158,6 +235,13 @@ CREATE TABLE `TJ_Tag_Recette` (
   `id_recette` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `TJ_Tag_Recette`
+--
+
+INSERT INTO `TJ_Tag_Recette` (`id_tag`, `id_recette`) VALUES
+(3, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -168,6 +252,15 @@ CREATE TABLE `Unite` (
   `id_unite` int(11) NOT NULL,
   `unite` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `Unite`
+--
+
+INSERT INTO `Unite` (`id_unite`, `unite`) VALUES
+(2, 'grammes'),
+(1, 'kilos'),
+(3, 'litres');
 
 -- --------------------------------------------------------
 
@@ -299,22 +392,22 @@ ALTER TABLE `Utilisateur`
 -- AUTO_INCREMENT pour la table `Commentaire`
 --
 ALTER TABLE `Commentaire`
-  MODIFY `id_commentaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_commentaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT pour la table `Ingredient`
 --
 ALTER TABLE `Ingredient`
-  MODIFY `id_ingredient` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ingredient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `Note`
 --
 ALTER TABLE `Note`
-  MODIFY `id_note` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_note` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `Recette`
 --
 ALTER TABLE `Recette`
-  MODIFY `id_recette` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_recette` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `statut`
 --
@@ -324,17 +417,17 @@ ALTER TABLE `statut`
 -- AUTO_INCREMENT pour la table `Tag`
 --
 ALTER TABLE `Tag`
-  MODIFY `id_tag` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tag` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `TJ_Commentaire_Utilisateur`
 --
 ALTER TABLE `TJ_Commentaire_Utilisateur`
-  MODIFY `id_commentaire_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_commentaire_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT pour la table `Unite`
 --
 ALTER TABLE `Unite`
-  MODIFY `id_unite` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_unite` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `Utilisateur`
 --
