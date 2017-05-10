@@ -2,6 +2,12 @@
     
         include('accueil.php');
 
+        function redir($url){
+            echo '<script language="javascript">';
+            echo 'window.location="',$url,'";';
+            echo '</script>';
+        }
+
         if(!empty($_POST['commentaire'])){
 
             //$date = new date('Y-m-d H:i:s');
@@ -27,5 +33,7 @@
 
             $stmt->closeCursor();
         }
+
+        redir("./recette2.php");
 
 ?>
