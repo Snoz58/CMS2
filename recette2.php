@@ -132,7 +132,7 @@ $choix = 1;
             <?php $req = $bdd->prepare('SELECT Commentaire.commentaire,Commentaire.date_commentaire,Commentaire.id_utilisateur,Commentaire.like_commentaire,Utilisateur.pseudo,Commentaire.id_commentaire FROM Commentaire 
                     INNER JOIN Utilisateur ON Utilisateur.id_utilisateur = Commentaire.id_utilisateur
                     WHERE id_recette = ?
-                    ORDER BY Commentaire.like_commentaire DESC,Commentaire.date_commentaire');
+                    ORDER BY Commentaire.date_commentaire DESC,Commentaire.like_commentaire');
             $req->execute(array($donnees['id_recette']));
             $id_recette = $donnees['id_recette'];
             ?>

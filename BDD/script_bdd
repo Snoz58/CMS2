@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost
--- Généré le :  Mar 09 Mai 2017 à 18:51
+-- Généré le :  Mer 10 Mai 2017 à 17:47
 -- Version du serveur :  5.6.35
 -- Version de PHP :  7.1.1
 
@@ -29,49 +29,6 @@ CREATE TABLE `Commentaire` (
   `id_recette` int(11) NOT NULL,
   `id_utilisateur` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `Commentaire`
---
-
-INSERT INTO `Commentaire` (`id_commentaire`, `commentaire`, `date_commentaire`, `like_commentaire`, `etat_commentaire`, `id_recette`, `id_utilisateur`) VALUES
-(1, 'test', '2017-04-06 00:00:00', 0, 0, 1, 1),
-(2, 'ouiLOLMDRTJESUISDTROPFORT', '2017-04-06 16:34:57', 0, 0, 1, 1),
-(3, 'lol', '2017-04-06 16:36:22', 1, 0, 1, 1),
-(4, 'mdrrrrrr', '2017-04-06 16:36:43', 0, 0, 2, 1),
-(5, 'tetstsdfs', '2017-04-06 16:38:21', 31, 0, 1, 1),
-(6, 'fgdfg', '2017-04-06 16:43:04', 0, 0, 1, 1),
-(7, 'bonjour', '2017-04-06 16:43:21', 1, 0, 1, 1),
-(8, 'dylan', '2017-04-06 16:44:12', 0, 0, 1, 1),
-(9, 'egeteretrzte', '2017-04-06 16:45:54', 0, 0, 1, 1),
-(10, 'lololol', '2017-04-06 16:46:43', 0, 0, 1, 1),
-(11, 'TGGGGGGG', '2017-04-06 16:47:47', 0, 0, 1, 1),
-(12, 'TGGGGGGG', '2017-04-06 16:49:31', 0, 0, 1, 1),
-(13, 'Dylan arrête pas de PETE', '2017-04-06 16:50:31', 0, 0, 1, 1),
-(14, 'OEUHFIHEHFHIEUIHFUHIHUFHUFHUEKUFHUEUOFHEKHOUFHUKF', '2017-04-06 16:51:58', 0, 0, 1, 1),
-(15, 'errer', '2017-04-06 17:00:14', 0, 0, 1, 1),
-(19, 'retesr', '2017-05-05 18:34:34', 0, 0, 1, 1),
-(20, 'erre', '2017-05-05 18:35:38', 0, 0, 1, 1),
-(21, 'erre', '2017-05-05 18:36:42', 0, 0, 1, 1),
-(22, 'erre', '2017-05-05 18:37:20', 0, 0, 1, 1),
-(23, 'erre', '2017-05-05 18:37:54', 0, 0, 1, 1),
-(24, 'erre', '2017-05-05 18:40:19', 0, 0, 1, 1),
-(25, 'erre', '2017-05-05 18:42:18', 0, 0, 1, 1),
-(26, 'erre', '2017-05-05 18:42:41', 0, 0, 1, 1),
-(27, 'erre', '2017-05-05 18:43:11', 0, 0, 1, 1),
-(28, 'erre', '2017-05-05 18:43:26', 0, 0, 1, 1),
-(29, 'erre', '2017-05-05 18:43:50', 0, 0, 1, 1),
-(30, 'erre', '2017-05-05 18:45:26', 0, 0, 1, 1),
-(31, 'erre', '2017-05-05 18:55:29', 0, 0, 1, 1),
-(32, 'erre', '2017-05-05 18:56:00', 0, 0, 1, 1),
-(33, 'erre', '2017-05-05 18:56:23', 1, 0, 1, 1),
-(34, 'erre', '2017-05-05 18:58:56', 0, 0, 1, 1),
-(35, 'erre', '2017-05-05 19:00:38', 0, 0, 1, 1),
-(36, 'erre', '2017-05-05 19:00:49', 4, 0, 1, 1),
-(37, 'erre', '2017-05-05 19:01:08', 0, 0, 1, 1),
-(38, 'testNouveauCommentaire', '2017-05-08 17:27:14', 5, 0, 1, 1),
-(39, 'dfdfdfs', '2017-05-08 17:27:43', 1, 0, 2, 1),
-(40, 'testgdfdfd', '2017-05-08 17:30:23', 13, 0, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -122,14 +79,6 @@ CREATE TABLE `Recette` (
   `etat` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `Recette`
---
-
-INSERT INTO `Recette` (`id_recette`, `titre_recette`, `description`, `contenu`, `adresse_photo`, `etat`) VALUES
-(1, '', 'Nouille + Jambon', 'Nouille + Jambon', 'test_photo', 'en cours'),
-(2, '', 'mcdo', 'mcdo', 'photo2', 'en cours');
-
 -- --------------------------------------------------------
 
 --
@@ -150,7 +99,8 @@ INSERT INTO `statut` (`id_statut`, `niveau`, `description`) VALUES
 (1, 1, 'Membre'),
 (2, 2, 'Redacteur'),
 (3, 3, 'Validateur'),
-(4, 4, 'Admin');
+(4, 4, 'Admin'),
+(11, 0, 'Banni');
 
 -- --------------------------------------------------------
 
@@ -174,17 +124,6 @@ CREATE TABLE `TJ_Commentaire_Utilisateur` (
   `id_commentaire` int(11) NOT NULL,
   `id_utilisateur` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `TJ_Commentaire_Utilisateur`
---
-
-INSERT INTO `TJ_Commentaire_Utilisateur` (`id_commentaire_utilisateur`, `id_commentaire`, `id_utilisateur`) VALUES
-(1, 40, 5),
-(2, 38, 5),
-(4, 33, 9),
-(5, 37, 9),
-(6, 38, 9);
 
 -- --------------------------------------------------------
 
@@ -249,15 +188,9 @@ CREATE TABLE `Utilisateur` (
 --
 
 INSERT INTO `Utilisateur` (`id_utilisateur`, `pseudo`, `mail`, `password`, `id_statut`) VALUES
-(1, 'SNIDER17', 'd.bisson@cs2i-bourgogne.com', 'Barcelone58160', 1),
-(2, 'SNOZ58', 'c.metenier@cs2i-bourgogne.com', 'test', 1),
-(3, 'testing', 'dyl.bisson@free.Fr', '$2y$10$YQgHG7rEc4bD0YaBTV79H.3VNVhTPH9aVYnmlMPXqKB', 1),
-(4, 'test', 'tes@efef.fr', '$2y$10$ysDQX9hVmkjRNkDOHnafbO3u7MOBhr4cRO05Nv8PGBY', 1),
-(5, 'alerte', 'aza@dfdf.fr', '$2y$10$og8Ach4nME/UaXU1oC1K5uSvWgEJUApdXY0yQ5yKWRnVOpmhQctJW', 1),
-(6, 'alerte', '', '$2y$10$ZcnUvAmvJcl9U4w5GQJY2Odd1D9hO1CJRezUFPm3iGSbVgfWszNv2', 1),
-(7, 'alerte', '', '$2y$10$A.mKk2QSeRG3KSqBzyUxnuNwNKntykJ1qW3ss9aZ3QLE7m4UMJKAa', 1),
-(8, 'azerty alerte azerty ', '', '$2y$10$r1ouyWPn3wtyJdeTVPcEUOqBvfziNzM/rh9zS/UyFA4fEQX2SqGyu', 1),
-(9, 'az', 'az@free.Fr', '$2y$10$gM0v.NnCn/fC79zL2ArpXuIXw1/o4A5JfB7MRAQvhOZcY8XSiplMe', 1);
+(10, 'romain', 'r.blondet@cs2i-bourgogne.com', '$2y$10$4yX/a6djgliNIhhGK9vvIOwkjaASBOpZdphTpAMMw5BbkVVCA1iG.', 1),
+(11, 'corentin', 'c.metenier@cs2i-bourgogne.com', '$2y$10$bNkk203gGK79rm5Wn1O4vObMJZHnYEIX.bhOO4Udk2RxDXA47es1K', 1),
+(12, 'dylan', 'd.bisson@cs2i-bourgogne.com', '$2y$10$vRiY47teieCKE76/SK0dS.rIp3qzLUHPupByf.E7JPi0RI1HCKKB2', 1);
 
 --
 -- Index pour les tables exportées
@@ -289,25 +222,29 @@ ALTER TABLE `Ingredient`
 -- Index pour la table `Note`
 --
 ALTER TABLE `Note`
-  ADD PRIMARY KEY (`id_note`);
+  ADD PRIMARY KEY (`id_note`),
+  ADD UNIQUE KEY `note` (`note`);
 
 --
 -- Index pour la table `Recette`
 --
 ALTER TABLE `Recette`
-  ADD PRIMARY KEY (`id_recette`);
+  ADD PRIMARY KEY (`id_recette`),
+  ADD UNIQUE KEY `titre_recette` (`titre_recette`);
 
 --
 -- Index pour la table `statut`
 --
 ALTER TABLE `statut`
-  ADD PRIMARY KEY (`id_statut`);
+  ADD PRIMARY KEY (`id_statut`),
+  ADD UNIQUE KEY `description` (`description`);
 
 --
 -- Index pour la table `Tag`
 --
 ALTER TABLE `Tag`
-  ADD PRIMARY KEY (`id_tag`);
+  ADD PRIMARY KEY (`id_tag`),
+  ADD UNIQUE KEY `label` (`label`);
 
 --
 -- Index pour la table `TJ_Commentaire_Utilisateur`
@@ -342,13 +279,16 @@ ALTER TABLE `TJ_Tag_Recette`
 -- Index pour la table `Unite`
 --
 ALTER TABLE `Unite`
-  ADD PRIMARY KEY (`id_unite`);
+  ADD PRIMARY KEY (`id_unite`),
+  ADD UNIQUE KEY `unite` (`unite`);
 
 --
 -- Index pour la table `Utilisateur`
 --
 ALTER TABLE `Utilisateur`
   ADD PRIMARY KEY (`id_utilisateur`),
+  ADD UNIQUE KEY `mail` (`mail`),
+  ADD UNIQUE KEY `pseudo` (`pseudo`),
   ADD KEY `FK_Utilisateur_id_statut` (`id_statut`);
 
 --
@@ -379,7 +319,7 @@ ALTER TABLE `Recette`
 -- AUTO_INCREMENT pour la table `statut`
 --
 ALTER TABLE `statut`
-  MODIFY `id_statut` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_statut` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT pour la table `Tag`
 --
@@ -389,7 +329,7 @@ ALTER TABLE `Tag`
 -- AUTO_INCREMENT pour la table `TJ_Commentaire_Utilisateur`
 --
 ALTER TABLE `TJ_Commentaire_Utilisateur`
-  MODIFY `id_commentaire_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_commentaire_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT pour la table `Unite`
 --
@@ -399,7 +339,7 @@ ALTER TABLE `Unite`
 -- AUTO_INCREMENT pour la table `Utilisateur`
 --
 ALTER TABLE `Utilisateur`
-  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- Contraintes pour les tables exportées
 --
