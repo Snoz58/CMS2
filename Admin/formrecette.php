@@ -59,7 +59,7 @@ function formrecette($page, $action, $id){
 		// recup recette + ingredients + tags
 		$reponse = $pdo->query('select * from Recette where Recette.id_recette = '.$id);
 		while ($donnees = $reponse->fetch()){
-			// $titre = $donnees["titre"]; 
+			$titre = $donnees["titre_recette"]; 
 			$description = $donnees["description"];
 			$contenu = $donnees["contenu"];
 			$image = $donnees["adresse_photo"];
@@ -80,7 +80,7 @@ function formrecette($page, $action, $id){
 		while ($donnees = $reponse->fetch()){ $ingredients .= '<input placeholder="quantité" name="quantite['.$i.']" required="" class="no-right-border form-control" value="'.$donnees["quantite"].'"><input name="ingredient['.$i.']" required="" class="form-control" value="'.$donnees["label"].'"><br>';}		
 
 		$values = [
-		    "titre" => "",
+		    "titre" => $titre,
 		    "description" => $description,
 		    "image" => $image,
 		    "contenu" => $contenu,
@@ -93,7 +93,7 @@ function formrecette($page, $action, $id){
 
 	}
 ?>
-<form action="<?= $action ?>?action=ajout" method="POST">
+<form action="<?= $action ?>" method="POST">
 		<div class="row">
 			<div class="col-lg-8">
 				<div class="form-group">
@@ -151,13 +151,14 @@ function formrecette($page, $action, $id){
 			<script type="text/javascript" >
         var divIngredients = document.getElementById('divIngredients');
         var divtags = document.getElementById('tags');
-        var id = 0;
+        var idR = 0;
+        var idT = 0;
         var tabIngredient = new Array();
 		var varexiste = false;
 
         function existe(){
 
-    	    for (var i = 0; i<id; i++){
+    	    for (var i = 0; i<idR; i++){
     			console.log(tabIngredient[i]);
     			if (tabIngredient[i] == value){
     				varexiste = true;
@@ -173,20 +174,20 @@ function formrecette($page, $action, $id){
 			//alert(existe());
 			var inputQuantite = document.createElement("input");
 			inputQuantite.placeholder = "quantité";
-			inputQuantite.name = "quantite["+id+"]";
+			inputQuantite.name = "quantite["+idR+"]";
 			inputQuantite.required = "required";
 			inputQuantite.className = "no-right-border form-control";
 
         	var inputIngredient = document.createElement("input");
             inputIngredient.value = value;
-            inputIngredient.name = "ingredient["+id+"]";
+            inputIngredient.name = "ingredient["+idR+"]";
             inputIngredient.required = "required";
             inputIngredient.className = "form-control";
             divIngredients.appendChild(inputQuantite);
             divIngredients.appendChild(inputIngredient);
             divIngredients.appendChild(document.createElement("br"));
-            tabIngredient[id] = value;
-            id += 1;
+            tabIngredient[idR] = value;
+            idR += 1;
 
         }
 
@@ -196,13 +197,13 @@ function formrecette($page, $action, $id){
 
         	var inputTag = document.createElement("input");
             inputTag.value = value;
-            inputTag.name = "tag["+id+"]";
+            inputTag.name = "tag["+idT+"]";
             inputTag.required = "required";
             inputTag.className = "form-control";
 
             divtags.appendChild(inputTag);
             divtags.appendChild(document.createElement("br"));
-            id += 1;
+            idT += 1;
 
         }
     </script>
