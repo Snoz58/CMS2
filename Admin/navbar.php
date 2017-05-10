@@ -10,7 +10,8 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="ajout_recette.php">Création</a></li>
+            <!-- <li><a href="ajout_recette.php">Création</a></li> -->
+            <li><a href="recette.php?action=ajout">Création</a></li>
             <li><a href="validation_recette.php">Validation</a></li>
             <li><a href="moderation_commentaires.php">Modération commentaires</a></li>
             <li class="dropdown open">

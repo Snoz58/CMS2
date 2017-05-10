@@ -4,15 +4,15 @@ afficherHeader("validation de recette");
 
 
 $reponse = $pdo->query('SELECT id_recette, description
-            FROM Recette');
+                        FROM Recette
+                        WHERE etat = "soummis"');
 $tableau = "";
 while ($donnees = $reponse->fetch())
 {
   $tableau .= "<tr>
                   <td>".$donnees["id_recette"]."</td>
                   <td>".$donnees["description"]."</td>
-                  <td><button type='button' class='btn btn-primary'>Répondre</button>
-                <button type='button' class='btn btn-danger'>Modérer</button></td>
+                  <td><a href='recette.php?action=valid&id=".$donnees["id_recette"]."'><button class='btn'>Voir</button></a>
                </tr>"; 
 
 }
