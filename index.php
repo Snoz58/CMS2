@@ -40,37 +40,21 @@
     <ul class="slides">
       <li>
         <img src="http://static1.terrafemina.com/articles/7/17/80/37/@/172187-pornfood-les-chefs-ne-supportent-plus-quon-prenne-en-photo-leurs-plats--622x0-1.jpg"> <!-- random image -->
-        <div class="caption center-align">
-          <h3>Miam</h3>
-          <h5 class="light grey-text text-lighten-3">Sa donne faim.</h5>
-        </div>
       </li>
       <li>
         <img src="http://img.over-blog-kiwi.com/1/14/48/83/20160815/ob_a312d9_food-porn-waffles-edition.jpg"> <!-- random image -->
-        <div class="caption left-align">
-          <h3>Miam</h3>
-          <h5 class="light grey-text text-lighten-3">Sa donne faim.</h5>
-        </div>
       </li>
       <li>
         <img src="http://www.yearn-magazine.fr/wp-content/uploads/2015/11/foodies-food-porn-blog-diy-do-it-yourself-6.jpg"> <!-- random image -->
-        <div class="caption right-align">
-          <h3>Miam</h3>
-          <h5 class="light grey-text text-lighten-3">Sa donne faim.</h5>
-        </div>
       </li>
       <li>
         <img src="http://img.izismile.com/img/img5/20120728/640/crazy_food_porn_part_5_640_32.jpg"> <!-- random image -->
-        <div class="caption center-align">
-          <h3>Miam</h3>
-          <h5 class="light grey-text text-lighten-3">Sa donne faim.</h5>
-        </div>
       </li>
     </ul>
   </div>
         <!-- Fin Slidder-->
       <div class="row center">
-        <h5 class="header col s12 light">Une plateform de gestion de recette en ligne</h5>
+        <h5 class="header col s12 light">Une plateforme de gestion de recette en ligne</h5>
       </div>
       <div class="row center">
         <a href="inscription.php" id="download-button" class="btn-large waves-effect waves-light brown darken-4 ">S'inscrire</a>

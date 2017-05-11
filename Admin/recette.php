@@ -17,14 +17,14 @@ if ($_SESSION['user_statut'] != 11 && $_SESSION['user_statut'] >= 2)
 
     include("formrecette.php");
 
-    echo "<pre>";
+    /**echo "<pre>";
     var_dump($_POST);
     echo "</pre>";
 
     echo "<pre>";
     var_dump($_FILES);
     echo "</pre>";
-
+    **/
 
     if (isset($_GET['submit'])){
 
@@ -58,7 +58,7 @@ if ($_SESSION['user_statut'] != 11 && $_SESSION['user_statut'] >= 2)
 
             for ($i=0; $i<sizeof($ingredient); $i++){
 
-                $reqContient .= "(".$quantite[$i].", (
+                $reqContient .= "('".$quantite[$i]."', (
 				select id_recette 
 				from Recette
 				where titre_recette = '".$titre."'

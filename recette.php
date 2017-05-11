@@ -64,7 +64,7 @@ while ($donnees = $req->fetch())
 
                         <?php
                         echo "<form method=\"post\" action=\"ajout_like.php?id=".$id_r."\">" ?>
-                            <input type='submit' class="btn waves-effect teal-light brown" name='ajoutLike' value='LIKER'><?php echo " Il y a : ".$donnees2['like_commentaire']." likes ";?></input><input type='submit' class="btn waves-effect teal-light brown" name='suppLike' value='DISLIKER'></input><br /><br />
+                            <input type='submit' class="btn waves-effect teal-light green" name='ajoutLike' value='J aime'><?php echo " Il y a : ".$donnees2['like_commentaire']." likes ";?></input><input type='submit' class="btn waves-effect teal-light red" name='suppLike' value='Je n aime pas'></input><br /><br />
                             <input type="text" style="display:none;" name="id_commentaire" value=<?php echo $donnees2['id_commentaire']; ?>></input>
                         </form>
                         </p>

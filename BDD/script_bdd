@@ -1,42 +1,53 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.2
+-- http://www.phpmyadmin.net
 --
--- Client :  localhost
--- Généré le :  Mer 10 Mai 2017 à 18:13
--- Version du serveur :  5.6.35
--- Version de PHP :  7.1.1
+-- Client :  127.0.0.1
+-- Généré le :  Jeu 11 Mai 2017 à 12:23
+-- Version du serveur :  5.7.9
+-- Version de PHP :  7.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
--- Base de données :  `ProjetCMS`
+-- Base de données :  `cms`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Commentaire`
+-- Structure de la table `commentaire`
 --
 
-CREATE TABLE `Commentaire` (
-  `id_commentaire` int(11) NOT NULL,
+DROP TABLE IF EXISTS `commentaire`;
+CREATE TABLE IF NOT EXISTS `commentaire` (
+  `id_commentaire` int(11) NOT NULL AUTO_INCREMENT,
   `commentaire` varchar(255) NOT NULL,
   `date_commentaire` datetime NOT NULL,
   `like_commentaire` int(11) UNSIGNED NOT NULL,
   `etat_commentaire` tinyint(1) NOT NULL,
   `id_recette` int(11) NOT NULL,
-  `id_utilisateur` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_utilisateur` int(11) NOT NULL,
+  PRIMARY KEY (`id_commentaire`),
+  KEY `FK_commentaire_id_recette` (`id_recette`),
+  KEY `FK_commentaire_id_utilisateur` (`id_utilisateur`)
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `Commentaire`
+-- Contenu de la table `commentaire`
 --
 
-INSERT INTO `Commentaire` (`id_commentaire`, `commentaire`, `date_commentaire`, `like_commentaire`, `etat_commentaire`, `id_recette`, `id_utilisateur`) VALUES
-(41, 'Temps de cuisson de 15 minutes conseillé', '2017-05-10 18:06:15', 1, 0, 3, 12),
-(42, 'Une tarte à la tomate s\'est meilleure', '2017-05-10 18:09:39', 1, 0, 3, 12);
+INSERT INTO `commentaire` (`id_commentaire`, `commentaire`, `date_commentaire`, `like_commentaire`, `etat_commentaire`, `id_recette`, `id_utilisateur`) VALUES
+(48, 'TrÃ©s bonne recette, j''adore !', '2017-05-11 12:07:06', 1, 0, 17, 14),
+(49, 'MIAM, j''adore en manger.', '2017-05-11 12:17:28', 1, 0, 18, 10),
+(50, 'BIENSUR', '2017-05-11 12:17:51', 1, 1, 18, 10);
 
 -- --------------------------------------------------------
 
@@ -44,10 +55,13 @@ INSERT INTO `Commentaire` (`id_commentaire`, `commentaire`, `date_commentaire`, 
 -- Structure de la table `contient`
 --
 
-CREATE TABLE `contient` (
-  `quantite` float DEFAULT NULL,
+DROP TABLE IF EXISTS `contient`;
+CREATE TABLE IF NOT EXISTS `contient` (
+  `quantite` varchar(255) DEFAULT NULL,
   `id_recette` int(11) NOT NULL,
-  `id_ingredient` int(11) NOT NULL
+  `id_ingredient` int(11) NOT NULL,
+  PRIMARY KEY (`id_recette`,`id_ingredient`),
+  KEY `FK_contient_id_ingredient` (`id_ingredient`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -55,47 +69,62 @@ CREATE TABLE `contient` (
 --
 
 INSERT INTO `contient` (`quantite`, `id_recette`, `id_ingredient`) VALUES
-(5, 3, 2),
-(2, 3, 4);
+('1', 17, 21),
+('2 tranche', 17, 22),
+('1', 17, 23),
+('1', 17, 24),
+('1 dose', 17, 25),
+('1', 17, 26),
+('100 grammes', 18, 27),
+('1', 18, 28);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Ingredient`
+-- Structure de la table `ingredient`
 --
 
-CREATE TABLE `Ingredient` (
-  `id_ingredient` int(11) NOT NULL,
-  `label` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `ingredient`;
+CREATE TABLE IF NOT EXISTS `ingredient` (
+  `id_ingredient` int(11) NOT NULL AUTO_INCREMENT,
+  `label` varchar(25) NOT NULL,
+  PRIMARY KEY (`id_ingredient`),
+  UNIQUE KEY `label` (`label`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `Ingredient`
+-- Contenu de la table `ingredient`
 --
 
-INSERT INTO `Ingredient` (`id_ingredient`, `label`) VALUES
-(2, 'Carotte'),
-(5, 'Frites'),
-(4, 'Oignon'),
-(3, 'Poireaux'),
-(1, 'Tomate');
+INSERT INTO `ingredient` (`id_ingredient`, `label`) VALUES
+(27, 'frite'),
+(28, 'fromage'),
+(25, 'ketchup'),
+(26, 'oignon'),
+(22, 'pain'),
+(24, 'salade'),
+(21, 'steak'),
+(23, 'tomate');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Note`
+-- Structure de la table `note`
 --
 
-CREATE TABLE `Note` (
-  `id_note` int(11) NOT NULL,
-  `note` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `note`;
+CREATE TABLE IF NOT EXISTS `note` (
+  `id_note` int(11) NOT NULL AUTO_INCREMENT,
+  `note` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id_note`),
+  UNIQUE KEY `note` (`note`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `Note`
+-- Contenu de la table `note`
 --
 
-INSERT INTO `Note` (`id_note`, `note`) VALUES
+INSERT INTO `note` (`id_note`, `note`) VALUES
 (1, 1),
 (2, 2),
 (3, 3),
@@ -105,24 +134,28 @@ INSERT INTO `Note` (`id_note`, `note`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Recette`
+-- Structure de la table `recette`
 --
 
-CREATE TABLE `Recette` (
-  `id_recette` int(11) NOT NULL,
+DROP TABLE IF EXISTS `recette`;
+CREATE TABLE IF NOT EXISTS `recette` (
+  `id_recette` int(11) NOT NULL AUTO_INCREMENT,
   `titre_recette` varchar(50) NOT NULL,
   `description` varchar(500) NOT NULL,
   `contenu` varchar(1000) NOT NULL,
   `adresse_photo` varchar(255) DEFAULT NULL,
-  `etat` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `etat` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_recette`),
+  UNIQUE KEY `titre_recette` (`titre_recette`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `Recette`
+-- Contenu de la table `recette`
 --
 
-INSERT INTO `Recette` (`id_recette`, `titre_recette`, `description`, `contenu`, `adresse_photo`, `etat`) VALUES
-(3, 'Tarte aux poireaux', 'La meilleure des tartes', '2 kilos de poireaux...\r\nPates', NULL, 'en cours');
+INSERT INTO `recette` (`id_recette`, `titre_recette`, `description`, `contenu`, `adresse_photo`, `etat`) VALUES
+(17, 'Hamburger', 'Hamburger fait maison.', '<p>Il faut mettre le steack dans les tranches de pain, avec salade, oignon, tomate, ketchup.</p>', 'images/d49b0eb740238b14b9df358fdb093932.jpg', 'publie'),
+(18, 'Poutine 2', 'Poutine du Quebec.', '<p>Voici une belle poutine, il faut des frites et du fromage.</p>\r\n<p>&nbsp;</p>', 'images/705630fdae9a7fb63b3b58a276cf6317.jpg', 'publie');
 
 -- --------------------------------------------------------
 
@@ -130,11 +163,14 @@ INSERT INTO `Recette` (`id_recette`, `titre_recette`, `description`, `contenu`, 
 -- Structure de la table `statut`
 --
 
-CREATE TABLE `statut` (
-  `id_statut` int(11) NOT NULL,
+DROP TABLE IF EXISTS `statut`;
+CREATE TABLE IF NOT EXISTS `statut` (
+  `id_statut` int(11) NOT NULL AUTO_INCREMENT,
   `niveau` tinyint(4) NOT NULL,
-  `description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `description` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_statut`),
+  UNIQUE KEY `description` (`description`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `statut`
@@ -150,114 +186,119 @@ INSERT INTO `statut` (`id_statut`, `niveau`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Tag`
+-- Structure de la table `tag`
 --
 
-CREATE TABLE `Tag` (
-  `id_tag` int(11) NOT NULL,
-  `label` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `tag`;
+CREATE TABLE IF NOT EXISTS `tag` (
+  `id_tag` int(11) NOT NULL AUTO_INCREMENT,
+  `label` varchar(25) NOT NULL,
+  PRIMARY KEY (`id_tag`),
+  UNIQUE KEY `label` (`label`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `Tag`
+-- Contenu de la table `tag`
 --
 
-INSERT INTO `Tag` (`id_tag`, `label`) VALUES
-(3, 'diététique'),
-(1, 'fast food'),
-(2, 'vegan');
+INSERT INTO `tag` (`id_tag`, `label`) VALUES
+(16, 'hamburger'),
+(17, 'quebec');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `TJ_Commentaire_Utilisateur`
+-- Structure de la table `tj_commentaire_utilisateur`
 --
 
-CREATE TABLE `TJ_Commentaire_Utilisateur` (
-  `id_commentaire_utilisateur` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tj_commentaire_utilisateur`;
+CREATE TABLE IF NOT EXISTS `tj_commentaire_utilisateur` (
+  `id_commentaire_utilisateur` int(11) NOT NULL AUTO_INCREMENT,
   `id_commentaire` int(11) NOT NULL,
-  `id_utilisateur` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_utilisateur` int(11) NOT NULL,
+  PRIMARY KEY (`id_commentaire_utilisateur`),
+  KEY `FK_constraint_Commentaire_Utilisateur_Commentaire` (`id_commentaire`),
+  KEY `FK_constraint_Commentaire_Utilisateur_Utilisateur` (`id_utilisateur`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `TJ_Commentaire_Utilisateur`
+-- Contenu de la table `tj_commentaire_utilisateur`
 --
 
-INSERT INTO `TJ_Commentaire_Utilisateur` (`id_commentaire_utilisateur`, `id_commentaire`, `id_utilisateur`) VALUES
-(13, 41, 12),
-(14, 42, 12);
+INSERT INTO `tj_commentaire_utilisateur` (`id_commentaire_utilisateur`, `id_commentaire`, `id_utilisateur`) VALUES
+(30, 48, 14),
+(31, 49, 10),
+(32, 50, 10);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `TJ_Ingredient_Unite`
+-- Structure de la table `tj_ingredient_unite`
 --
 
-CREATE TABLE `TJ_Ingredient_Unite` (
+DROP TABLE IF EXISTS `tj_ingredient_unite`;
+CREATE TABLE IF NOT EXISTS `tj_ingredient_unite` (
   `id_ingredient` int(11) NOT NULL,
-  `id_unite` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `TJ_Ingredient_Unite`
---
-
-INSERT INTO `TJ_Ingredient_Unite` (`id_ingredient`, `id_unite`) VALUES
-(1, 2),
-(2, 2);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `TJ_Note_Recette`
---
-
-CREATE TABLE `TJ_Note_Recette` (
-  `id_note` int(11) NOT NULL,
-  `id_recette` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `TJ_Note_Recette`
---
-
-INSERT INTO `TJ_Note_Recette` (`id_note`, `id_recette`) VALUES
-(3, 3);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `TJ_Tag_Recette`
---
-
-CREATE TABLE `TJ_Tag_Recette` (
-  `id_tag` int(11) NOT NULL,
-  `id_recette` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `TJ_Tag_Recette`
---
-
-INSERT INTO `TJ_Tag_Recette` (`id_tag`, `id_recette`) VALUES
-(3, 3);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `Unite`
---
-
-CREATE TABLE `Unite` (
   `id_unite` int(11) NOT NULL,
-  `unite` varchar(25) NOT NULL
+  PRIMARY KEY (`id_ingredient`,`id_unite`),
+  KEY `FK_TJ_Ingredient_Unite_id_unite` (`id_unite`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `tj_note_recette`
+--
+
+DROP TABLE IF EXISTS `tj_note_recette`;
+CREATE TABLE IF NOT EXISTS `tj_note_recette` (
+  `id_note` int(11) NOT NULL,
+  `id_recette` int(11) NOT NULL,
+  PRIMARY KEY (`id_note`,`id_recette`),
+  KEY `FK_Note_Recette_id_recette` (`id_recette`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `tj_tag_recette`
+--
+
+DROP TABLE IF EXISTS `tj_tag_recette`;
+CREATE TABLE IF NOT EXISTS `tj_tag_recette` (
+  `id_tag` int(11) NOT NULL,
+  `id_recette` int(11) NOT NULL,
+  PRIMARY KEY (`id_tag`,`id_recette`),
+  KEY `FK_Tag_Recette_id_recette` (`id_recette`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `Unite`
+-- Contenu de la table `tj_tag_recette`
 --
 
-INSERT INTO `Unite` (`id_unite`, `unite`) VALUES
+INSERT INTO `tj_tag_recette` (`id_tag`, `id_recette`) VALUES
+(16, 17),
+(17, 18);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `unite`
+--
+
+DROP TABLE IF EXISTS `unite`;
+CREATE TABLE IF NOT EXISTS `unite` (
+  `id_unite` int(11) NOT NULL AUTO_INCREMENT,
+  `unite` varchar(25) NOT NULL,
+  PRIMARY KEY (`id_unite`),
+  UNIQUE KEY `unite` (`unite`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `unite`
+--
+
+INSERT INTO `unite` (`id_unite`, `unite`) VALUES
 (2, 'grammes'),
 (1, 'kilos'),
 (3, 'litres');
@@ -265,222 +306,85 @@ INSERT INTO `Unite` (`id_unite`, `unite`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Utilisateur`
+-- Structure de la table `utilisateur`
 --
 
-CREATE TABLE `Utilisateur` (
-  `id_utilisateur` int(11) NOT NULL,
+DROP TABLE IF EXISTS `utilisateur`;
+CREATE TABLE IF NOT EXISTS `utilisateur` (
+  `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT,
   `pseudo` varchar(25) NOT NULL,
   `mail` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `id_statut` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_statut` int(11) NOT NULL,
+  PRIMARY KEY (`id_utilisateur`),
+  UNIQUE KEY `mail` (`mail`),
+  UNIQUE KEY `pseudo` (`pseudo`),
+  KEY `FK_Utilisateur_id_statut` (`id_statut`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `Utilisateur`
+-- Contenu de la table `utilisateur`
 --
 
-INSERT INTO `Utilisateur` (`id_utilisateur`, `pseudo`, `mail`, `password`, `id_statut`) VALUES
-(10, 'romain', 'r.blondet@cs2i-bourgogne.com', '$2y$10$4yX/a6djgliNIhhGK9vvIOwkjaASBOpZdphTpAMMw5BbkVVCA1iG.', 1),
-(11, 'corentin', 'c.metenier@cs2i-bourgogne.com', '$2y$10$bNkk203gGK79rm5Wn1O4vObMJZHnYEIX.bhOO4Udk2RxDXA47es1K', 1),
-(12, 'dylan', 'd.bisson@cs2i-bourgogne.com', '$2y$10$vRiY47teieCKE76/SK0dS.rIp3qzLUHPupByf.E7JPi0RI1HCKKB2', 1);
+INSERT INTO `utilisateur` (`id_utilisateur`, `pseudo`, `mail`, `password`, `id_statut`) VALUES
+(10, 'romain', 'r.blondet@cs2i-bourgogne.com', '$2y$10$4yX/a6djgliNIhhGK9vvIOwkjaASBOpZdphTpAMMw5BbkVVCA1iG.', 4),
+(11, 'corentin', 'c.metenier@cs2i-bourgogne.com', '$2y$10$bNkk203gGK79rm5Wn1O4vObMJZHnYEIX.bhOO4Udk2RxDXA47es1K', 3),
+(12, 'dylan', 'd.bisson@cs2i-bourgogne.com', '$2y$10$vRiY47teieCKE76/SK0dS.rIp3qzLUHPupByf.E7JPi0RI1HCKKB2', 1),
+(13, 'dylan2', 'dylan2@dylan.fr', '$2y$10$GJ.esizbeUCFL6BxlpcxouCtPKvfDMTGoIv1qEiKd6t4QTKiTEBZu', 11),
+(14, 'cms', 'cms@cms.fr', '$2y$10$wMFR7VlG6DH/CSaZoRoDdOF.jl699bvRIkOXot9SgN4ScCSmRmhPO', 1);
 
---
--- Index pour les tables exportées
---
-
---
--- Index pour la table `Commentaire`
---
-ALTER TABLE `Commentaire`
-  ADD PRIMARY KEY (`id_commentaire`),
-  ADD KEY `FK_commentaire_id_recette` (`id_recette`),
-  ADD KEY `FK_commentaire_id_utilisateur` (`id_utilisateur`);
-
---
--- Index pour la table `contient`
---
-ALTER TABLE `contient`
-  ADD PRIMARY KEY (`id_recette`,`id_ingredient`),
-  ADD KEY `FK_contient_id_ingredient` (`id_ingredient`);
-
---
--- Index pour la table `Ingredient`
---
-ALTER TABLE `Ingredient`
-  ADD PRIMARY KEY (`id_ingredient`),
-  ADD UNIQUE KEY `label` (`label`);
-
---
--- Index pour la table `Note`
---
-ALTER TABLE `Note`
-  ADD PRIMARY KEY (`id_note`),
-  ADD UNIQUE KEY `note` (`note`);
-
---
--- Index pour la table `Recette`
---
-ALTER TABLE `Recette`
-  ADD PRIMARY KEY (`id_recette`),
-  ADD UNIQUE KEY `titre_recette` (`titre_recette`);
-
---
--- Index pour la table `statut`
---
-ALTER TABLE `statut`
-  ADD PRIMARY KEY (`id_statut`),
-  ADD UNIQUE KEY `description` (`description`);
-
---
--- Index pour la table `Tag`
---
-ALTER TABLE `Tag`
-  ADD PRIMARY KEY (`id_tag`),
-  ADD UNIQUE KEY `label` (`label`);
-
---
--- Index pour la table `TJ_Commentaire_Utilisateur`
---
-ALTER TABLE `TJ_Commentaire_Utilisateur`
-  ADD PRIMARY KEY (`id_commentaire_utilisateur`),
-  ADD KEY `FK_constraint_Commentaire_Utilisateur_Commentaire` (`id_commentaire`),
-  ADD KEY `FK_constraint_Commentaire_Utilisateur_Utilisateur` (`id_utilisateur`);
-
---
--- Index pour la table `TJ_Ingredient_Unite`
---
-ALTER TABLE `TJ_Ingredient_Unite`
-  ADD PRIMARY KEY (`id_ingredient`,`id_unite`),
-  ADD KEY `FK_TJ_Ingredient_Unite_id_unite` (`id_unite`);
-
---
--- Index pour la table `TJ_Note_Recette`
---
-ALTER TABLE `TJ_Note_Recette`
-  ADD PRIMARY KEY (`id_note`,`id_recette`),
-  ADD KEY `FK_Note_Recette_id_recette` (`id_recette`);
-
---
--- Index pour la table `TJ_Tag_Recette`
---
-ALTER TABLE `TJ_Tag_Recette`
-  ADD PRIMARY KEY (`id_tag`,`id_recette`),
-  ADD KEY `FK_Tag_Recette_id_recette` (`id_recette`);
-
---
--- Index pour la table `Unite`
---
-ALTER TABLE `Unite`
-  ADD PRIMARY KEY (`id_unite`),
-  ADD UNIQUE KEY `unite` (`unite`);
-
---
--- Index pour la table `Utilisateur`
---
-ALTER TABLE `Utilisateur`
-  ADD PRIMARY KEY (`id_utilisateur`),
-  ADD UNIQUE KEY `mail` (`mail`),
-  ADD UNIQUE KEY `pseudo` (`pseudo`),
-  ADD KEY `FK_Utilisateur_id_statut` (`id_statut`);
-
---
--- AUTO_INCREMENT pour les tables exportées
---
-
---
--- AUTO_INCREMENT pour la table `Commentaire`
---
-ALTER TABLE `Commentaire`
-  MODIFY `id_commentaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
---
--- AUTO_INCREMENT pour la table `Ingredient`
---
-ALTER TABLE `Ingredient`
-  MODIFY `id_ingredient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT pour la table `Note`
---
-ALTER TABLE `Note`
-  MODIFY `id_note` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT pour la table `Recette`
---
-ALTER TABLE `Recette`
-  MODIFY `id_recette` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT pour la table `statut`
---
-ALTER TABLE `statut`
-  MODIFY `id_statut` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
---
--- AUTO_INCREMENT pour la table `Tag`
---
-ALTER TABLE `Tag`
-  MODIFY `id_tag` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT pour la table `TJ_Commentaire_Utilisateur`
---
-ALTER TABLE `TJ_Commentaire_Utilisateur`
-  MODIFY `id_commentaire_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
---
--- AUTO_INCREMENT pour la table `Unite`
---
-ALTER TABLE `Unite`
-  MODIFY `id_unite` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT pour la table `Utilisateur`
---
-ALTER TABLE `Utilisateur`
-  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- Contraintes pour les tables exportées
 --
 
 --
--- Contraintes pour la table `Commentaire`
+-- Contraintes pour la table `commentaire`
 --
-ALTER TABLE `Commentaire`
-  ADD CONSTRAINT `FK_commentaire_id_recette` FOREIGN KEY (`id_recette`) REFERENCES `Recette` (`id_recette`),
-  ADD CONSTRAINT `FK_commentaire_id_utilisateur` FOREIGN KEY (`id_utilisateur`) REFERENCES `Utilisateur` (`id_utilisateur`);
+ALTER TABLE `commentaire`
+  ADD CONSTRAINT `FK_commentaire_id_recette` FOREIGN KEY (`id_recette`) REFERENCES `recette` (`id_recette`),
+  ADD CONSTRAINT `FK_commentaire_id_utilisateur` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`);
 
 --
 -- Contraintes pour la table `contient`
 --
 ALTER TABLE `contient`
-  ADD CONSTRAINT `FK_contient_id_ingredient` FOREIGN KEY (`id_ingredient`) REFERENCES `Ingredient` (`id_ingredient`),
-  ADD CONSTRAINT `FK_contient_id_recette` FOREIGN KEY (`id_recette`) REFERENCES `Recette` (`id_recette`);
+  ADD CONSTRAINT `FK_contient_id_ingredient` FOREIGN KEY (`id_ingredient`) REFERENCES `ingredient` (`id_ingredient`),
+  ADD CONSTRAINT `FK_contient_id_recette` FOREIGN KEY (`id_recette`) REFERENCES `recette` (`id_recette`);
 
 --
--- Contraintes pour la table `TJ_Commentaire_Utilisateur`
+-- Contraintes pour la table `tj_commentaire_utilisateur`
 --
-ALTER TABLE `TJ_Commentaire_Utilisateur`
-  ADD CONSTRAINT `FK_constraint_Commentaire_Utilisateur_Commentaire` FOREIGN KEY (`id_commentaire`) REFERENCES `Commentaire` (`id_commentaire`),
-  ADD CONSTRAINT `FK_constraint_Commentaire_Utilisateur_Utilisateur` FOREIGN KEY (`id_utilisateur`) REFERENCES `Utilisateur` (`id_utilisateur`);
+ALTER TABLE `tj_commentaire_utilisateur`
+  ADD CONSTRAINT `FK_constraint_Commentaire_Utilisateur_Commentaire` FOREIGN KEY (`id_commentaire`) REFERENCES `commentaire` (`id_commentaire`),
+  ADD CONSTRAINT `FK_constraint_Commentaire_Utilisateur_Utilisateur` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`);
 
 --
--- Contraintes pour la table `TJ_Ingredient_Unite`
+-- Contraintes pour la table `tj_ingredient_unite`
 --
-ALTER TABLE `TJ_Ingredient_Unite`
-  ADD CONSTRAINT `FK_TJ_Ingredient_Unite_id_ingredient` FOREIGN KEY (`id_ingredient`) REFERENCES `Ingredient` (`id_ingredient`),
-  ADD CONSTRAINT `FK_TJ_Ingredient_Unite_id_unite` FOREIGN KEY (`id_unite`) REFERENCES `Unite` (`id_unite`);
+ALTER TABLE `tj_ingredient_unite`
+  ADD CONSTRAINT `FK_TJ_Ingredient_Unite_id_ingredient` FOREIGN KEY (`id_ingredient`) REFERENCES `ingredient` (`id_ingredient`),
+  ADD CONSTRAINT `FK_TJ_Ingredient_Unite_id_unite` FOREIGN KEY (`id_unite`) REFERENCES `unite` (`id_unite`);
 
 --
--- Contraintes pour la table `TJ_Note_Recette`
+-- Contraintes pour la table `tj_note_recette`
 --
-ALTER TABLE `TJ_Note_Recette`
-  ADD CONSTRAINT `FK_Note_Recette_id_note` FOREIGN KEY (`id_note`) REFERENCES `Note` (`id_note`),
-  ADD CONSTRAINT `FK_Note_Recette_id_recette` FOREIGN KEY (`id_recette`) REFERENCES `Recette` (`id_recette`);
+ALTER TABLE `tj_note_recette`
+  ADD CONSTRAINT `FK_Note_Recette_id_note` FOREIGN KEY (`id_note`) REFERENCES `note` (`id_note`),
+  ADD CONSTRAINT `FK_Note_Recette_id_recette` FOREIGN KEY (`id_recette`) REFERENCES `recette` (`id_recette`);
 
 --
--- Contraintes pour la table `TJ_Tag_Recette`
+-- Contraintes pour la table `tj_tag_recette`
 --
-ALTER TABLE `TJ_Tag_Recette`
-  ADD CONSTRAINT `FK_Tag_Recette_id_recette` FOREIGN KEY (`id_recette`) REFERENCES `Recette` (`id_recette`),
-  ADD CONSTRAINT `FK_Tag_Recette_id_tag` FOREIGN KEY (`id_tag`) REFERENCES `Tag` (`id_tag`);
+ALTER TABLE `tj_tag_recette`
+  ADD CONSTRAINT `FK_Tag_Recette_id_recette` FOREIGN KEY (`id_recette`) REFERENCES `recette` (`id_recette`),
+  ADD CONSTRAINT `FK_Tag_Recette_id_tag` FOREIGN KEY (`id_tag`) REFERENCES `tag` (`id_tag`);
 
 --
--- Contraintes pour la table `Utilisateur`
+-- Contraintes pour la table `utilisateur`
 --
-ALTER TABLE `Utilisateur`
+ALTER TABLE `utilisateur`
   ADD CONSTRAINT `FK_Utilisateur_id_statut` FOREIGN KEY (`id_statut`) REFERENCES `statut` (`id_statut`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

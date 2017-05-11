@@ -179,6 +179,7 @@ function formrecette($page, $action, $id){
 			var inputQuantite = document.createElement("input");
 			inputQuantite.placeholder = "quantité";
 			inputQuantite.name = "quantite["+idR+"]";
+			inputQuantite.type = "text";
 			inputQuantite.required = "required";
 			inputQuantite.className = "no-right-border form-control";
 

@@ -1,6 +1,6 @@
 <?php
     $id_r = $_GET["id"];
-        include('accueil.php');
+        include('recette.php');
 
         function redir($url){
             echo '<script language="javascript">';
