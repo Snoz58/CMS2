@@ -19,7 +19,7 @@ if(isset($_POST['envoyer']))
   }
   else
   {
-    echo"error";
+    echo"Pseudo ou Mot de pas Erroné";
   }
 }
 ?>

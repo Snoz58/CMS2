@@ -46,7 +46,7 @@ class USER
 	{
 		try
 		{
-			$stmt = $this->conn->prepare("SELECT id_utilisateur, pseudo, password FROM utilisateur WHERE pseudo=:uname");
+			$stmt = $this->conn->prepare("SELECT id_utilisateur, pseudo, password, id_statut FROM utilisateur WHERE pseudo=:uname");
 			$stmt->execute(array(':uname'=>$uname));
 			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 			if($stmt->rowCount() == 1)
@@ -54,6 +54,7 @@ class USER
 				if(password_verify($upass, $userRow['password']))
 				{
 					$_SESSION['user_session'] = $userRow['id_utilisateur'];
+                    $_SESSION['user_statut'] = $userRow['id_statut'];
 					return true;
 				}
 				else

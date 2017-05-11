@@ -6,7 +6,8 @@ $login = new USER();
 
 if($login->is_loggedin()!="")
 {
-    $login->redirect('recette.php?action=ajout');
+    //$login->redirect('recette.php?action=ajout');
+    $login->redirect('interfaceadmin.php');
 }
 
 if(isset($_POST['envoyer']))
@@ -16,11 +17,12 @@ if(isset($_POST['envoyer']))
 
     if($login->doLogin($uname,$upass))
     {
-        $login->redirect('recette.php?action=ajout');
+        //$login->redirect('recette.php?action=ajout');
+        $login->redirect('interfaceadmin.php');
     }
     else
     {
-        echo"error";
+        echo"Pseudo ou Mot de pas Erroné";
     }
 }
 /**

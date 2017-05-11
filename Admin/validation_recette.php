@@ -1,9 +1,11 @@
 <?php 
-include('header.php');
-afficherHeader("validation de recette");
+
 
 require_once("../controller/session.php");
-
+if ($_SESSION['user_statut'] != 11 && $_SESSION['user_statut'] >= 3)
+{
+include('header.php');
+afficherHeader("validation de recette");
 require_once("../controller/class.php");
 $auth_user = new USER();
 
@@ -21,42 +23,50 @@ $reponse = $pdo->query('SELECT id_recette, description, titre_recette
 $tableau = "";
 while ($donnees = $reponse->fetch())
 {
-  $tableau .= "<tr>
+    $tableau .= "<tr>
                   <td>".$donnees["id_recette"]."</td>
                   <td>".$donnees["titre_recette"]."</td>
                   <td>".$donnees["description"]."</td>
                   <td><a href='recette.php?action=valid&id=".$donnees["id_recette"]."'><button class='btn'>Voir</button></a>
-               </tr>"; 
+               </tr>";
 
 }
 
 ?>
 
-    <h2>Recettes publiées</h2>           
-  <table class="table table-striped">
+<h2>Recettes publiées</h2>
+<table class="table table-striped">
     <thead>
-      <tr>
+    <tr>
         <th>Id</th>
         <th>Titre</th>
         <th>Description</th>
         <th>Action</th>
-      </tr>
+    </tr>
     </thead>
     <tbody>
     <?= $tableau ?>
     </tbody>
-  </table>
+</table>
 </div>
 
-    </div><!--/.container-->
+</div><!--/.container-->
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="../../dist/js/bootstrap.min.js"></script>
 
-  </body>
+</body>
 </html>
+<?php
+}
+else {
+    ?>
+    <a href="interfaceadmin.php">Vous n'avez pas accès a cette partie.</a>
+<?php
+}
+

@@ -10,7 +10,7 @@ $req->execute(array($id_r));
 
 $req2 = $bdd->prepare('SELECT Commentaire.commentaire,Commentaire.date_commentaire,Commentaire.id_utilisateur,Commentaire.like_commentaire,Utilisateur.pseudo,Commentaire.id_commentaire FROM Commentaire 
                     INNER JOIN Utilisateur ON Utilisateur.id_utilisateur = Commentaire.id_utilisateur
-                    WHERE id_recette = ?
+                    WHERE etat_commentaire = 0 AND id_recette = ?
                     ORDER BY Commentaire.like_commentaire DESC,Commentaire.date_commentaire');
 $req2->execute(array($id_r));
 
