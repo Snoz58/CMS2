@@ -6,16 +6,8 @@ include("page/header.html");
     <div class="section">
         <?php
 
-        try
-        {
-            // On se connecte à MySQL
-            $bdd = new PDO('mysql:host=localhost;dbname=ProjetCMS;charset=utf8', 'root', 'root');
-        }
-        catch(Exception $e)
-        {
-            // En cas d'erreur, on affiche un message et on arrête tout
-            die('Erreur : '.$e->getMessage());
-        }
+        include ("Admin/bdd.php");
+        $bdd = $pdo; 
 
         // Si tout va bien, on peut continuer
 
