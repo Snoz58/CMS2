@@ -1,5 +1,5 @@
 <?php
-/** verification */
+/** verification co*/
 session_start();
 require_once('../controller/class.php');
 $login = new USER();
