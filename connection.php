@@ -48,7 +48,7 @@ include("page/header.html");
                     </div>
                 </div>
                 <div class="row col s2 offset-s6">
-                    <button class="btn waves-effect teal-light brown" type="submit" name="envoyer">Enregistrer
+                    <button class="btn waves-effect teal-light brown" type="submit" name="envoyer">Se Connecter
                         <i class="material-icons right">send</i>
                     </button>
                 </div>

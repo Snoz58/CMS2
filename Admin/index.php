@@ -1,5 +1,28 @@
-<?php 
+<?php
+session_start();
+require_once('../controller/class.php');
+$login = new USER();
 
+if($login->is_loggedin()!="")
+{
+    $login->redirect('recette.php?action=ajout');
+}
+
+if(isset($_POST['envoyer']))
+{
+    $uname = strip_tags($_POST['pseudo']);
+    $upass = strip_tags($_POST['password']);
+
+    if($login->doLogin($uname,$upass))
+    {
+        $login->redirect('recette.php?action=ajout');
+    }
+    else
+    {
+        echo"error";
+    }
+}
+/**
   include('bdd.php');
 
   if (isset($_POST["submit"])){
@@ -23,7 +46,7 @@
 
 
   } 
-
+**/
  ?>
 <!DOCTYPE html>
 <html>
@@ -45,17 +68,16 @@
 
     <div class="container">
 
-      <form class="form-signin" action="index.php" method="POST">
+      <form class="form-signin" name="connection" method="post">
         <h2 class="form-signin-heading">Connexion</h2>
         
-        <label for="inputLogin" class="sr-only">Login</label>
-        <input type="text" id="inputLogin" name="inputLogin" class="form-control" placeholder="Login" required autofocus>
+        <label for="pseudo" class="sr-only">Login</label>
+        <input type="text" id="pseudo" name="pseudo" class="form-control" placeholder="Login" required autofocus>
         
-        <label for="inputPassword" class="sr-only">Mot de passe</label>
-        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Mot de passe" required>
+        <label for="password" class="sr-only">Mot de passe</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Mot de passe" required>
         
-        <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Se connecter</button>
-        <a href="../inscription.php">Créer un compte</a>
+        <button class="btn btn-lg btn-primary btn-block" name="envoyer" type="submit">Se connecter</button>
       </form>
 
     </div> <!-- /container -->

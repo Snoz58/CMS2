@@ -1,11 +1,4 @@
-<?php  
-
-session_start();
-
-if ($_SESSION["statut"] < 2){
-  header ('Location:index.php');
-}
-
+<?php
 include("bdd.php");
 
 function afficherHeader($title){

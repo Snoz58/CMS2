@@ -1,5 +1,19 @@
 <?php 
 include('header.php');
+
+require_once("../controller/session.php");
+
+require_once("../controller/class.php");
+$auth_user = new USER();
+
+
+$user_id = $_SESSION['user_session'];
+
+$stmt = $auth_user->runQuery("SELECT pseudo FROM utilisateur WHERE id_utilisateur=:user_id");
+$stmt->execute(array(":user_id"=>$user_id));
+
+$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+
 afficherHeader("Gestion des rôles");
 
 	    if(!empty($_POST['Suppr'])) {

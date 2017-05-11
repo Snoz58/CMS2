@@ -2,6 +2,19 @@
 include('header.php');
 afficherHeader("Gestion des utilisateurs");
 
+require_once("../controller/session.php");
+
+require_once("../controller/class.php");
+$auth_user = new USER();
+
+
+$user_id = $_SESSION['user_session'];
+
+$stmt = $auth_user->runQuery("SELECT pseudo FROM utilisateur WHERE id_utilisateur=:user_id");
+$stmt->execute(array(":user_id"=>$user_id));
+
+$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+
 if(!empty($_POST['Bannir']) AND $_POST['niveau'] > 0) {
 
     $stmt = $pdo->prepare("UPDATE Utilisateur SET id_statut = 11 WHERE id_utilisateur = :id_utilisateur");
