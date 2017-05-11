@@ -16,7 +16,6 @@
       session_start();
       $_SESSION["statut"] = $donnees["niveau"];
       header ('Location:recette.php?submit=ajout');
-      $
     }
     else {
       echo 'erreur de connexion';

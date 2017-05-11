@@ -5,7 +5,7 @@ $id_r = $_GET["id"];
 include ("Admin/bdd.php");
 $bdd = $pdo; 
 
-$req = $bdd->prepare('SELECT * FROM Recette WHERE id_recette = ?');
+$req = $bdd->prepare('SELECT * FROM Recette WHERE etat  = "publie" AND id_recette = ?');
 $req->execute(array($id_r));
 
 $req2 = $bdd->prepare('SELECT Commentaire.commentaire,Commentaire.date_commentaire,Commentaire.id_utilisateur,Commentaire.like_commentaire,Utilisateur.pseudo,Commentaire.id_commentaire FROM Commentaire 

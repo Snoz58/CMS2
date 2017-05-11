@@ -13,7 +13,7 @@ include("page/header1.php");
         // Si tout va bien, on peut continuer
 
         // On récupère tout le contenu de la table jeux_video
-        $reponse = $bdd->query('SELECT * FROM Recette');
+        $reponse = $bdd->query('SELECT * FROM Recette WHERE etat  = "publie"');
 
         // On affiche chaque entrée une à une
             while ($donnees = $reponse->fetch())
